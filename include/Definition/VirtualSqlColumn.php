@@ -19,9 +19,9 @@ class VirtualSqlColumn
 	private string $type;
 
 	/**
-	 * @var int|null
+	 * @var int|string|null
 	 */
-	private ?int $length;
+	private null|int|string $length;
 
 	/**
 	 * @var bool
@@ -51,14 +51,14 @@ class VirtualSqlColumn
 	/**
 	 * @param string $column
 	 * @param string $type
-	 * @param int|null $length
+	 * @param string|int|null $length
 	 * @param bool $nullable
 	 * @param callable|string|null $defaultValue
 	 * @param array $extras
 	 * @param VirtualSqlTable|null $table
 	 * @param string|null $alias
 	 */
-	public function __construct(string $column, string $type, ?int $length = null, bool $nullable = false, callable|string|null $defaultValue = null, array $extras = [], ?VirtualSqlTable $table = null, ?string $alias = null)
+	public function __construct(string $column, string $type, string|int|null $length = null, bool $nullable = false, callable|string|null $defaultValue = null, array $extras = [], ?VirtualSqlTable $table = null, ?string $alias = null)
 	{
 		$this->column = $column;
 		$this->type = $type;
@@ -95,11 +95,10 @@ class VirtualSqlColumn
 		return $this->type;
 	}
 
-
 	/**
-	 * @return int|null
+	 * @return int|string|null
 	 */
-	public function getLength(): ?int
+	public function getLength(): int|string|null
 	{
 		return $this->length;
 	}
