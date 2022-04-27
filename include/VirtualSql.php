@@ -69,14 +69,14 @@ class VirtualSql
 	/**
 	 * DEFAULTS
 	 */
-	const DEFAULT_CURRENT_TIMESTAMP = 'current_timestamp';
+	const DEFAULT_CURRENT_TIMESTAMP = 'CURRENT_TIMESTAMP';
 
 	/**
 	 * EXTRAS
 	 */
-	const EXTRA_AUTO_INCREMENT = 'auto_increment';
-	const EXTRA_UNIQUE = 'unique';
-	const EXTRA_ON_UPDATE_CURRENT_TIMESTAMP = 'on_update_current_timestamp';
+	const EXTRA_AUTO_INCREMENT = 'AUTO_INCREMENT';
+	const EXTRA_UNIQUE = 'UNIQUE';
+	const EXTRA_ON_UPDATE_CURRENT_TIMESTAMP = 'ON UPDATE '.self::DEFAULT_CURRENT_TIMESTAMP;
 	const EXTRA_PRIMARY_KEY = 'primary_key';
 
 	/**
