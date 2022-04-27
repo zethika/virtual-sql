@@ -1,0 +1,15 @@
+{
+    "name": "kennethberg/virtual-sql",
+    "authors": [
+        {
+            "name": "zethika",
+            "email": "zethika594@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "VirtualSql\\": "include/"
+        }
+    }
+}
