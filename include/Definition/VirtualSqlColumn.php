@@ -139,6 +139,18 @@ class VirtualSqlColumn
 	}
 
 	/**
+	 * @param string $extra
+	 * @return $this
+	 */
+	public function addExtra(string $extra): static
+	{
+		if(!$this->hasExtra($extra))
+			$this->extras[] = $extra;
+
+		return $this;
+	}
+
+	/**
 	 * @return VirtualSqlTable|null
 	 */
 	public function getTable(): ?VirtualSqlTable
