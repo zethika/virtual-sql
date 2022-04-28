@@ -30,7 +30,7 @@ class VirtualSqlCreateTableStatementParser
 		$this->statement = $statement;
 		$this->columns = [];
 
-		preg_match('/CREATE TABLE `(.*)` \((.*)\)/is',$statement, $matches);
+		preg_match('/CREATE TABLE `(.*?)` \((.*)\)/is',$statement, $matches);
 		if(count($matches) !== 3)
 			throw new InvalidStatementPartException('String is not a recognized create statement');
 
@@ -63,6 +63,7 @@ class VirtualSqlCreateTableStatementParser
 	 * @param string $columnString
 	 * @param string $name
 	 * @param string $typeDeclaration
+	 * @return VirtualSqlColumn
 	 */
 	private function populateColumn(string $columnString, string $name, string $typeDeclaration)
 	{
