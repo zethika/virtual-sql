@@ -10,7 +10,16 @@ use VirtualSql\VirtualSql;
 class VirtualSqlCondition
 {
 	public static array $acceptedComparators = [
-		VirtualSql::COMPARATOR_EQUALS => VirtualSql::COMPARATOR_EQUALS
+		VirtualSql::COMPARATOR_EQUALS => VirtualSql::COMPARATOR_EQUALS,
+		VirtualSql::COMPARATOR_NOT_EQUALS => VirtualSql::COMPARATOR_NOT_EQUALS,
+		VirtualSql::COMPARATOR_LIKE => VirtualSql::COMPARATOR_LIKE,
+		VirtualSql::COMPARATOR_LESS_THAN => VirtualSql::COMPARATOR_LESS_THAN,
+		VirtualSql::COMPARATOR_LESS_EQUAL_THAN => VirtualSql::COMPARATOR_LESS_EQUAL_THAN,
+		VirtualSql::COMPARATOR_GREATER_EQUAL_THAN => VirtualSql::COMPARATOR_GREATER_EQUAL_THAN,
+		VirtualSql::COMPARATOR_GREATER_THAN => VirtualSql::COMPARATOR_GREATER_THAN,
+		VirtualSql::COMPARATOR_IN => VirtualSql::COMPARATOR_IN,
+		VirtualSql::COMPARATOR_NOT_IN => VirtualSql::COMPARATOR_NOT_IN,
+		VirtualSql::COMPARATOR_BETWEEN => VirtualSql::COMPARATOR_BETWEEN,
 	];
 
 	/**
