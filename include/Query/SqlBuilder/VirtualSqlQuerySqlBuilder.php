@@ -1,11 +1,12 @@
 <?php
 
-namespace VirtualSql\Query;
+namespace VirtualSql\Query\SqlBuilder;
 
 use JetBrains\PhpStorm\Pure;
 use VirtualSql\Definition\VirtualSqlColumn;
 use VirtualSql\Definition\VirtualSqlTable;
 use VirtualSql\Exceptions\InvalidQueryPartException;
+use VirtualSql\Query\VirtualSqlSelectQuery;
 use VirtualSql\QueryParts\Element\ConditionValue\VirtualSqlArrayConditionValue;
 use VirtualSql\QueryParts\Element\ConditionValue\VirtualSqlBetweenConditionValue;
 use VirtualSql\QueryParts\Element\VirtualSqlCondition;
@@ -56,7 +57,6 @@ class VirtualSqlQuerySqlBuilder
 	}
 
 	/**
-	 *
 	 * @throws InvalidQueryPartException
 	 */
 	public function getSql(): string
