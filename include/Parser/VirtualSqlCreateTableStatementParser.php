@@ -25,7 +25,7 @@ class VirtualSqlCreateTableStatementParser
 	/**
 	 * @throws InvalidStatementPartException
 	 */
-	public function parseStatement(string $statement)
+	public function parseStatement(string $statement): VirtualSqlTable
 	{
 		$this->statement = $statement;
 		$this->columns = [];
@@ -45,18 +45,49 @@ class VirtualSqlCreateTableStatementParser
 	{
 		$columns = explode("\n",$columnsString);
 		foreach ($columns as $column){
-			preg_match('/(.*) `(.*?)` (.*?)[ ,]/is',$column,$matches);
-			if(count($matches) === 4)
+			$column = trim($column);
+			if(str_contains($column,VirtualSql::EXTRA_PRIMARY_KEY))
 			{
-				$this->columns[$matches[2]] = $this->populateColumn($column, $matches[2], $matches[3]);
+				$this->parsePrimaryKeyColumn($column);
 			}
-			else if(trim($column) !== '')
+			else if(str_contains($column,VirtualSql::EXTRA_UNIQUE))
 			{
-				preg_match('/PRIMARY KEY \(`(.*)`\)/is',$column,$matches);
-				if(count($matches) === 2 && isset($this->columns[$matches[1]]))
-					$this->columns[$matches[1]]->addExtra(VirtualSql::EXTRA_PRIMARY_KEY);
+				$this->parseUniqueColumn($column);
+			}
+			else
+			{
+				preg_match('/(.*) `(.*?)` (.*?)[ ,]/is',$column,$matches);
+				if(count($matches) === 4)
+					$this->columns[$matches[2]] = $this->populateColumn($column, $matches[2], $matches[3]);
 			}
 		}
+	}
+
+	/**
+	 * @param string $column
+	 */
+	private function parseUniqueColumn(string $column)
+	{
+		preg_match('/UNIQUE KEY `(.*)` \((.*)\),/is',$column,$matches);
+		if(count($matches) !== 3)
+			return;
+
+		$columns = explode(',',str_replace('`','',$matches[2]));
+		foreach ($columns as $columnName)
+		{
+			if(isset($this->columns[$columnName]))
+				$this->columns[$columnName]->addExtra(VirtualSql::EXTRA_UNIQUE);
+		}
+	}
+
+	/**
+	 * @param string $column
+	 */
+	private function parsePrimaryKeyColumn(string $column)
+	{
+		preg_match('/PRIMARY KEY \(`(.*)`\)/is',$column,$matches);
+		if(count($matches) === 2 && isset($this->columns[$matches[1]]))
+			$this->columns[$matches[1]]->addExtra(VirtualSql::EXTRA_PRIMARY_KEY);
 	}
 
 	/**
