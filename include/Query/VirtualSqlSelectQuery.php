@@ -6,12 +6,12 @@ use JetBrains\PhpStorm\Pure;
 use VirtualSql\Definition\VirtualSqlColumn;
 use VirtualSql\Definition\VirtualSqlTable;
 use VirtualSql\Exceptions\InvalidQueryPartException;
-use VirtualSql\Query\Element\VirtualSqlCondition;
-use VirtualSql\Query\Element\VirtualSqlConditionSet;
-use VirtualSql\Query\Element\VirtualSqlJoin;
+use VirtualSql\QueryParts\Element\VirtualSqlCondition;
+use VirtualSql\QueryParts\Element\VirtualSqlConditionSet;
+use VirtualSql\QueryParts\Element\VirtualSqlJoin;
 use VirtualSql\VirtualSql;
 
-class VirtualSqlSelectQuery
+class VirtualSqlSelectQuery extends VirtualSqlQuery
 {
 	/**
 	 * @var VirtualSqlColumn[]

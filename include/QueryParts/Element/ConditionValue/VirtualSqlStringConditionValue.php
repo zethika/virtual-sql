@@ -1,6 +1,6 @@
 <?php
 
-namespace VirtualSql\Query\Element\ConditionValue;
+namespace VirtualSql\QueryParts\Element\ConditionValue;
 
 class VirtualSqlStringConditionValue extends VirtualSqlConditionValue
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace VirtualSql\Query\Element;
+namespace VirtualSql\QueryParts\Element;
 
 use VirtualSql\VirtualSql;
 

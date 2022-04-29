@@ -6,10 +6,10 @@ use JetBrains\PhpStorm\Pure;
 use VirtualSql\Definition\VirtualSqlColumn;
 use VirtualSql\Definition\VirtualSqlTable;
 use VirtualSql\Exceptions\InvalidQueryPartException;
-use VirtualSql\Query\Element\ConditionValue\VirtualSqlArrayConditionValue;
-use VirtualSql\Query\Element\ConditionValue\VirtualSqlBetweenConditionValue;
-use VirtualSql\Query\Element\VirtualSqlCondition;
-use VirtualSql\Query\Element\VirtualSqlConditionSet;
+use VirtualSql\QueryParts\Element\ConditionValue\VirtualSqlArrayConditionValue;
+use VirtualSql\QueryParts\Element\ConditionValue\VirtualSqlBetweenConditionValue;
+use VirtualSql\QueryParts\Element\VirtualSqlCondition;
+use VirtualSql\QueryParts\Element\VirtualSqlConditionSet;
 use VirtualSql\VirtualSql;
 
 class VirtualSqlQuerySqlBuilder

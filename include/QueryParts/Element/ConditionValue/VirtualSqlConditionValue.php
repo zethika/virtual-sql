@@ -1,6 +1,6 @@
 <?php
 
-namespace VirtualSql\Query\Element\ConditionValue;
+namespace VirtualSql\QueryParts\Element\ConditionValue;
 
 use VirtualSql\Definition\VirtualSqlColumn;
 use VirtualSql\Exceptions\InvalidQueryPartException;

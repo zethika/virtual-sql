@@ -7,19 +7,28 @@ use VirtualSql\Definition\VirtualSqlColumn;
 use VirtualSql\Definition\VirtualSqlTable;
 use VirtualSql\Exceptions\InvalidQueryPartException;
 use VirtualSql\Exceptions\UndefinedQueryPartException;
-use VirtualSql\Query\Element\VirtualSqlCondition;
-use VirtualSql\Query\Element\VirtualSqlConditionSet;
-use VirtualSql\Query\Element\VirtualSqlJoin;
 use VirtualSql\Query\VirtualSqlSelectQuery;
+use VirtualSql\QueryParts\Element\VirtualSqlCondition;
+use VirtualSql\QueryParts\Element\VirtualSqlConditionSet;
+use VirtualSql\QueryParts\Element\VirtualSqlJoin;
 
 class VirtualSqlQueryBuilder
 {
+	const TYPE_SELECT = 0;
+	const TYPE_INSERT = 1;
+	const TYPE_UPDATE = 2;
+	const TYPE_DELETE = 3;
+
+	const TYPE_CLASS_MAP = [
+		self::TYPE_SELECT => VirtualSqlSelectQuery::class
+	];
 
 	/**
 	 * @param VirtualSqlTable $baseTable
+	 * @param int $type
 	 * @return VirtualSqlQueryBuilder
 	 */
-	public static function factory(VirtualSqlTable $baseTable): VirtualSqlQueryBuilder
+	public static function factory(VirtualSqlTable $baseTable, int $type = self::TYPE_SELECT): VirtualSqlQueryBuilder
 	{
 		$query = new VirtualSqlSelectQuery($baseTable);
 		return new self($query,[$baseTable]);
@@ -39,7 +48,7 @@ class VirtualSqlQueryBuilder
 	private array $tables = [];
 
 	/**
-	 * @param VirtualSqlSelectQuery $query
+	 * @param \VirtualSql\Query\VirtualSqlSelectQuery $query
 	 * @param VirtualSqlTable[] $tables
 	 */
 	public function __construct(VirtualSqlSelectQuery $query, array $tables)

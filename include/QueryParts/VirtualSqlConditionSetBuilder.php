@@ -1,13 +1,13 @@
 <?php
 
-namespace VirtualSql\Query;
+namespace VirtualSql\QueryParts;
 
 use JetBrains\PhpStorm\Pure;
 use VirtualSql\Definition\VirtualSqlColumn;
 use VirtualSql\Exceptions\InvalidQueryPartException;
-use VirtualSql\Query\Element\ConditionValue\VirtualSqlConditionValue;
-use VirtualSql\Query\Element\VirtualSqlCondition;
-use VirtualSql\Query\Element\VirtualSqlConditionSet;
+use VirtualSql\QueryParts\Element\ConditionValue\VirtualSqlConditionValue;
+use VirtualSql\QueryParts\Element\VirtualSqlCondition;
+use VirtualSql\QueryParts\Element\VirtualSqlConditionSet;
 use VirtualSql\VirtualSql;
 
 class VirtualSqlConditionSetBuilder
