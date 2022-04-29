@@ -73,7 +73,7 @@ class VirtualSqlQuerySqlBuilder
 	 */
 	#[Pure] private function buildString(): string
 	{
-		$string = 'SELECT '.implode(',',$this->selectParts).' FROM '.$this->getAliasedTableName($this->query->getFrom());
+		$string = 'SELECT '.implode(',',$this->selectParts).' FROM '.$this->getAliasedTableName($this->query->getBaseTable());
 
 		if(count($this->joinParts) > 0)
 			$string .= ' '.implode(' ',$this->joinParts);

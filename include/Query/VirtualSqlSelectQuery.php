@@ -19,11 +19,6 @@ class VirtualSqlSelectQuery extends VirtualSqlQuery
 	private array $selects;
 
 	/**
-	 * @var VirtualSqlTable
-	 */
-	private VirtualSqlTable $from;
-
-	/**
 	 * @var VirtualSqlJoin[]
 	 */
 	private array $joins;
@@ -56,11 +51,11 @@ class VirtualSqlSelectQuery extends VirtualSqlQuery
 	 */
 	public function __construct(VirtualSqlTable $from, array $joins = [], ?VirtualSqlConditionSet $where = null, array $selects = [])
 	{
-		$this->from = $from;
 		$this->joins = $joins;
 		$this->where = $where === null ? new VirtualSqlConditionSet(VirtualSql::OPERATOR_AND) : $where;
 		$this->selects = $selects;
 		$this->sqlBuilder = new VirtualSqlQuerySqlBuilder($this);
+		parent::__construct($from);
 	}
 
 	/**
@@ -97,14 +92,6 @@ class VirtualSqlSelectQuery extends VirtualSqlQuery
 	{
 		$this->limit = $limit;
 		return $this;
-	}
-
-	/**
-	 * @return VirtualSqlTable
-	 */
-	public function getFrom(): VirtualSqlTable
-	{
-		return $this->from;
 	}
 
 	/**
