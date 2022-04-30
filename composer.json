@@ -1,5 +1,7 @@
 {
     "name": "zethika/virtual-sql",
+    "keywords": ["php","sql","mysql","class"],
+    "homepage": "https://github.com/zethika/virtual-sql",
     "description": "A class-based abstraction layer for MySQL, designed to help with programmatically writing MySQL queries.",
     "authors": [
         {
