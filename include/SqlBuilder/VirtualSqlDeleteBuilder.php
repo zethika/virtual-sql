@@ -9,47 +9,47 @@ use VirtualSql\SqlBuilder\Partials\LimitAbleSqlBuilder;
 
 class VirtualSqlDeleteBuilder extends LimitAbleSqlBuilder
 {
-	/**
-	 * @var VirtualSqlDeleteQuery
-	 */
-	private VirtualSqlDeleteQuery $query;
+    /**
+     * @var VirtualSqlDeleteQuery
+     */
+    private VirtualSqlDeleteQuery $query;
 
-	/**
-	 * @param VirtualSqlDeleteQuery $query
-	 */
-	public function __construct(VirtualSqlDeleteQuery $query)
-	{
-		$this->query = $query;
-	}
+    /**
+     * @param VirtualSqlDeleteQuery $query
+     */
+    public function __construct(VirtualSqlDeleteQuery $query)
+    {
+        $this->query = $query;
+    }
 
-	/**
-	 * @return VirtualSqlDeleteQuery
-	 */
-	protected function getQuery(): VirtualSqlQuery
-	{
-		return $this->query;
-	}
+    /**
+     * @return VirtualSqlDeleteQuery
+     */
+    protected function getQuery(): VirtualSqlQuery
+    {
+        return $this->query;
+    }
 
-	/**
-	 * @return string
-	 * @throws InvalidQueryPartException
-	 */
-	public function getSql(): string
-	{
-		$string = 'DELETE FROM '.$this->getAliasedTableName($this->getQuery()->getBaseTable());
+    /**
+     * @return string
+     * @throws InvalidQueryPartException
+     */
+    public function getSql(): string
+    {
+        $string = 'DELETE FROM ' . $this->getAliasedTableName($this->getQuery()->getBaseTable());
 
-		$parts = [
-			$this->buildJoinString($this->getQuery()->getJoins()),
-			$this->buildWhereString($this->getQuery()->getWhere()),
-			$this->buildLimitString($this->getQuery()->getLimit()),
-		];
+        $parts = [
+            $this->buildJoinString($this->getQuery()->getJoins()),
+            $this->buildWhereString($this->getQuery()->getWhere()),
+            $this->buildLimitString($this->getQuery()->getLimit()),
+        ];
 
-		foreach ($parts as $part)
-		{
-			if($part !== null)
-				$string .= ' '.$part;
-		}
+        foreach ($parts as $part)
+        {
+            if ($part !== null)
+                $string .= ' ' . $part;
+        }
 
-		return $string;
-	}
+        return $string;
+    }
 }

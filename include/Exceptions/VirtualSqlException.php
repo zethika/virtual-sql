@@ -2,7 +2,9 @@
 
 namespace VirtualSql\Exceptions;
 
-abstract class VirtualSqlException extends \Exception
+use Exception;
+
+abstract class VirtualSqlException extends Exception
 {
 
 }

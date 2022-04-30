@@ -14,53 +14,53 @@ use VirtualSql\VirtualSqlQueryHelper;
  */
 class VirtualSqlTableDefinitionGenerator
 {
-	use SingletonTrait;
+    use SingletonTrait;
 
-	/**
-	 * @var VirtualSqlQueryHelper
-	 */
-	private VirtualSqlQueryHelper $db;
+    /**
+     * @var VirtualSqlQueryHelper
+     */
+    private VirtualSqlQueryHelper $db;
 
-	/**
-	 * @var string|bool[]
-	 */
-	private array $tables = [];
+    /**
+     * @var string|bool[]
+     */
+    private array $tables = [];
 
-	/**
-	 * @param PDO $pdo
-	 */
-	public function init(PDO $pdo)
-	{
-		$this->db = new VirtualSqlQueryHelper($pdo);
-		$this->tables = [];
-		$this->determineTables();
-	}
-
-
-	/**
-	 * @param string $table
-	 * @return VirtualSqlTable
-	 * @throws InvalidStatementPartException
-	 */
-	public function generateTableDefinition(string $table)
-	{
-		if(!isset($this->tables[$table]))
-			throw new InvalidStatementPartException('Unknown table "'.$table.'"');
-
-		if($this->tables[$table] === false)
-			$this->tables[$table] = $this->db->fetch('SHOW CREATE TABLE '.$table)['Create Table'];
-
-		return VirtualSqlCreateTableStatementParser::getInstance()->parseStatement($this->tables[$table]);
-	}
+    /**
+     * @param PDO $pdo
+     */
+    public function init(PDO $pdo)
+    {
+        $this->db = new VirtualSqlQueryHelper($pdo);
+        $this->tables = [];
+        $this->determineTables();
+    }
 
 
-	/**
-	 * Determines tables present in the database
-	 */
-	private function determineTables()
-	{
-		$tables = $this->db->fetchAll('SHOW TABLES');
-		foreach ($tables as $data)
-			$this->tables[end($data)] = false;
-	}
+    /**
+     * @param string $table
+     * @return VirtualSqlTable
+     * @throws InvalidStatementPartException
+     */
+    public function generateTableDefinition(string $table)
+    {
+        if (!isset($this->tables[$table]))
+            throw new InvalidStatementPartException('Unknown table "' . $table . '"');
+
+        if ($this->tables[$table] === false)
+            $this->tables[$table] = $this->db->fetch('SHOW CREATE TABLE ' . $table)['Create Table'];
+
+        return VirtualSqlCreateTableStatementParser::getInstance()->parseStatement($this->tables[$table]);
+    }
+
+
+    /**
+     * Determines tables present in the database
+     */
+    private function determineTables()
+    {
+        $tables = $this->db->fetchAll('SHOW TABLES');
+        foreach ($tables as $data)
+            $this->tables[end($data)] = false;
+    }
 }

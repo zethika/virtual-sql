@@ -8,13 +8,13 @@ use VirtualSql\SqlBuilder\VirtualSqlDeleteBuilder;
 
 class VirtualSqlDeleteQuery extends LimitAbleSqlQuery
 {
-	/**
-	 * @param VirtualSqlTable $table
-	 * @param array $config
-	 */
-	public function __construct(VirtualSqlTable $table, array $config)
-	{
-		$this->builder = new VirtualSqlDeleteBuilder($this);
-		parent::__construct($table, $config);
-	}
+    /**
+     * @param VirtualSqlTable $table
+     * @param array $config
+     */
+    public function __construct(VirtualSqlTable $table, array $config)
+    {
+        $this->builder = new VirtualSqlDeleteBuilder($this);
+        parent::__construct($table, $config);
+    }
 }
