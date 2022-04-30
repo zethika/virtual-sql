@@ -11,9 +11,9 @@ Virtual SQL provides a class (VirtualSqlTable) for defining a database table and
 when working with queries towards those tables.  
 These table definitions can be generated at runtime, by providing a PDO instance to the
 VirtualSqlTableDefinitionGenerator Singleton.  
-It can then extract the CREATE TABLE definition directly from the database, and provide an instance representing a given
+It can then extract the CREATE TABLE definition directly from the database and provide an instance representing a given
 table.  
-The CREATE TABLE statements extracted from the database is kept in memory, to minimize excess SQL queries from it.
+The CREATE TABLE statements extracted from the database is kept in memory, to minimize excess SQL queries from repeated calls to the same table.
 
 ```
 use VirtualSql\Generator\VirtualSqlTableDefinitionGenerator;
