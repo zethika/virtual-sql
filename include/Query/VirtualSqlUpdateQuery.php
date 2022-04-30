@@ -40,35 +40,42 @@ class VirtualSqlUpdateQuery extends WhereAbleSqlQuery
 	}
 
 	/**
-	 * @param VirtualSqlColumn[] $columns
+	 * @param array $columns
+	 * @return VirtualSqlUpdateQuery
 	 */
-	public function setColumns(array $columns): void
+	public function setColumns(array $columns): VirtualSqlUpdateQuery
 	{
 		$this->columns = $columns;
+		return $this;
 	}
 
 	/**
 	 * @param VirtualSqlColumn $column
+	 * @return VirtualSqlUpdateQuery
 	 */
-	public function addColumn(VirtualSqlColumn $column)
+	public function addColumn(VirtualSqlColumn $column): VirtualSqlUpdateQuery
 	{
 		foreach ($this->columns as $known)
 		{
 			if($known->getColumn() === $column->getColumn() && $column->getTable()->getName() === $known->getTable()->getName())
-				return;
+				return $this;
 		}
 
 		$this->columns[] = $column;
+
+		return $this;
 	}
 
 	/**
 	 * @param VirtualSqlColumn $column
 	 * @param $value
+	 * @return VirtualSqlUpdateQuery
 	 */
-	public function addColumnWithValue(VirtualSqlColumn $column, $value)
+	public function addColumnWithValue(VirtualSqlColumn $column, $value): VirtualSqlUpdateQuery
 	{
 		$this->addColumn($column);
 		$this->setColumnValue($column->getColumn(),$value);
+		return $this;
 	}
 
 	/**
@@ -81,18 +88,22 @@ class VirtualSqlUpdateQuery extends WhereAbleSqlQuery
 
 	/**
 	 * @param array $values
+	 * @return VirtualSqlUpdateQuery
 	 */
-	public function setValues(array $values): void
+	public function setValues(array $values): VirtualSqlUpdateQuery
 	{
 		$this->values = $values;
+		return $this;
 	}
 
 	/**
 	 * @param string $column
 	 * @param $value
+	 * @return VirtualSqlUpdateQuery
 	 */
-	public function setColumnValue(string $column, $value)
+	public function setColumnValue(string $column, $value): VirtualSqlUpdateQuery
 	{
 		$this->values[$column] = $value;
+		return $this;
 	}
 }
