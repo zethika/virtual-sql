@@ -1,10 +1,10 @@
 <?php
 
-namespace VirtualSql\Query\Traits;
+namespace VirtualSql\Query\Types;
 
 use VirtualSql\Query\VirtualSqlQuery;
 
-trait OffsetAbleQueryTrait
+abstract class OffsetAbleSqlQuery extends LimitAbleSqlQuery
 {
 	/**
 	 * @var int|null
@@ -21,9 +21,9 @@ trait OffsetAbleQueryTrait
 
 	/**
 	 * @param int|null $offset
-	 * @return VirtualSqlQuery
+	 * @return OffsetAbleSqlQuery
 	 */
-	public function setOffset(?int $offset): VirtualSqlQuery
+	public function setOffset(?int $offset): OffsetAbleSqlQuery
 	{
 		$this->offset = $offset;
 		return $this;

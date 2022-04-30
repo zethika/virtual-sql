@@ -1,19 +1,13 @@
 <?php
 
-namespace VirtualSql\Query\Traits;
+namespace VirtualSql\Query\Types;
 
 use VirtualSql\Query\VirtualSqlQuery;
 use VirtualSql\QueryParts\Element\VirtualSqlCondition;
 use VirtualSql\QueryParts\Element\VirtualSqlConditionSet;
-use VirtualSql\QueryParts\Element\VirtualSqlJoin;
 
-trait WhereAbleQueryTrait
+abstract class WhereAbleSqlQuery extends JoinAbleSqlQuery
 {
-	/**
-	 * @var VirtualSqlJoin[]
-	 */
-	private array $joins;
-
 	/**
 	 * @var VirtualSqlConditionSet
 	 */

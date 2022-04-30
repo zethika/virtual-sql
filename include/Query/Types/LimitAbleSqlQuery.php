@@ -1,10 +1,10 @@
 <?php
 
-namespace VirtualSql\Query\Traits;
+namespace VirtualSql\Query\Types;
 
 use VirtualSql\Query\VirtualSqlQuery;
 
-trait LimitAbleQueryTrait
+abstract class LimitAbleSqlQuery extends WhereAbleSqlQuery
 {
 	/**
 	 * @var int|null
@@ -21,9 +21,9 @@ trait LimitAbleQueryTrait
 
 	/**
 	 * @param int|null $limit
-	 * @return VirtualSqlQuery
+	 * @return LimitAbleSqlQuery
 	 */
-	public function setLimit(?int $limit): VirtualSqlQuery
+	public function setLimit(?int $limit): LimitAbleSqlQuery
 	{
 		$this->limit = $limit;
 		return $this;

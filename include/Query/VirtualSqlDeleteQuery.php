@@ -2,16 +2,10 @@
 
 namespace VirtualSql\Query;
 
-use VirtualSql\Query\Traits\JoinAbleQueryTrait;
-use VirtualSql\Query\Traits\LimitAbleQueryTrait;
-use VirtualSql\Query\Traits\WhereAbleQueryTrait;
+use VirtualSql\Query\Types\LimitAbleSqlQuery;
 
-class VirtualSqlDeleteQuery extends VirtualSqlQuery
+class VirtualSqlDeleteQuery extends LimitAbleSqlQuery
 {
-	use WhereAbleQueryTrait;
-	use JoinAbleQueryTrait;
-	use LimitAbleQueryTrait;
-
 	// Where
 	// limit
 }

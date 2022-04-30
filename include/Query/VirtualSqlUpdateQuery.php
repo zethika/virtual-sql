@@ -2,13 +2,10 @@
 
 namespace VirtualSql\Query;
 
-use VirtualSql\Query\Traits\JoinAbleQueryTrait;
-use VirtualSql\Query\Traits\WhereAbleQueryTrait;
+use VirtualSql\Query\Types\WhereAbleSqlQuery;
 
-class VirtualSqlUpdateQuery extends VirtualSqlQuery
+class VirtualSqlUpdateQuery extends WhereAbleSqlQuery
 {
-	use WhereAbleQueryTrait;
-	use JoinAbleQueryTrait;
 
 	// Values headers
 	// Values rows

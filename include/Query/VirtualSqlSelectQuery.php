@@ -2,25 +2,16 @@
 
 namespace VirtualSql\Query;
 
-use JetBrains\PhpStorm\Pure;
 use VirtualSql\Definition\VirtualSqlColumn;
 use VirtualSql\Definition\VirtualSqlTable;
 use VirtualSql\Query\SqlBuilder\VirtualSqlQuerySqlBuilder;
-use VirtualSql\Query\Traits\JoinAbleQueryTrait;
-use VirtualSql\Query\Traits\LimitAbleQueryTrait;
-use VirtualSql\Query\Traits\OffsetAbleQueryTrait;
-use VirtualSql\Query\Traits\WhereAbleQueryTrait;
+use VirtualSql\Query\Types\OffsetAbleSqlQuery;
 use VirtualSql\QueryParts\Element\VirtualSqlConditionSet;
 use VirtualSql\QueryParts\Element\VirtualSqlJoin;
 use VirtualSql\VirtualSql;
 
-class VirtualSqlSelectQuery extends VirtualSqlQuery
+class VirtualSqlSelectQuery extends OffsetAbleSqlQuery
 {
-	use WhereAbleQueryTrait;
-	use JoinAbleQueryTrait;
-	use LimitAbleQueryTrait;
-	use OffsetAbleQueryTrait;
-
 	/**
 	 * @var VirtualSqlColumn[]
 	 */
