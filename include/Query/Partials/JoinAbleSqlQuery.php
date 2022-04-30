@@ -24,7 +24,15 @@ abstract class JoinAbleSqlQuery extends VirtualSqlQuery
 	 */
 	public function __construct(VirtualSqlTable $baseTable, array $config)
 	{
-		$this->joins = isset($config['joins']) && is_array($config['joins']) ? array_values(array_filter($config['joins'],fn($join) => $join instanceof VirtualSqlJoin)) : [];
+		if(isset($config['joins']) && is_array($config['joins']))
+		{
+			foreach ($config['joins'] as $join)
+			{
+				if($join instanceof VirtualSqlJoin)
+					$this->addJoinToQuery($join);
+			}
+		}
+
 		parent::__construct($baseTable);
 	}
 
