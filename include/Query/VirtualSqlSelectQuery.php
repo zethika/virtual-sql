@@ -72,12 +72,4 @@ class VirtualSqlSelectQuery extends VirtualSqlQuery
 		$this->selects[] = $columnSelect;
 		return $this;
 	}
-
-	/**
-	 *
-	 */
-	#[Pure] public function getNamedParameters(): array
-	{
-		return $this->sqlBuilder->getNamedParameters();
-	}
 }
