@@ -5,6 +5,7 @@ namespace VirtualSql\Query;
 use VirtualSql\Definition\VirtualSqlColumn;
 use VirtualSql\Definition\VirtualSqlTable;
 use VirtualSql\Query\Partials\OffsetAbleSqlQuery;
+use VirtualSql\SqlBuilder\VirtualSqlSelectBuilder;
 
 class VirtualSqlSelectQuery extends OffsetAbleSqlQuery
 {
@@ -20,6 +21,7 @@ class VirtualSqlSelectQuery extends OffsetAbleSqlQuery
 	public function __construct(VirtualSqlTable $from, array $config)
 	{
 		$this->selects = isset($config['selects']) && is_array($config['selects']) ? array_values(array_filter($config['selects'],fn($select) => $select instanceof VirtualSqlColumn)) : [];
+		$this->builder = new VirtualSqlSelectBuilder($this);
 		parent::__construct($from, $config);
 	}
 

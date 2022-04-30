@@ -50,7 +50,7 @@ abstract class VirtualSqlQuery
 	/**
 	 * @var VirtualSqlBuilder
 	 */
-	private VirtualSqlBuilder $builder;
+	protected VirtualSqlBuilder $builder;
 
 	/**
 	 * @param VirtualSqlTable $baseTable
@@ -60,7 +60,6 @@ abstract class VirtualSqlQuery
 		$this->baseTable = $baseTable;
 
 		$this->ensureTable($baseTable);
-		$this->builder = new VirtualSqlBuilder($this);
 	}
 
 	/**

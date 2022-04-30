@@ -165,7 +165,7 @@ abstract class VirtualSqlBuilder
 	 * @param $value
 	 * @return string
 	 */
-	private function addNamedParameter($value): string
+	protected function addNamedParameter($value): string
 	{
 		$name = $this->getUnusedNamedParameter();
 		$this->namedParameters[$name] = $value;
