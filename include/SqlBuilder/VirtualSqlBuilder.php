@@ -37,6 +37,7 @@ abstract class VirtualSqlBuilder
 
 	/**
 	 * @return string
+	 * @throws InvalidQueryPartException
 	 */
 	abstract public function getSql(): string;
 

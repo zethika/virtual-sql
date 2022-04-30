@@ -9,6 +9,11 @@ use VirtualSql\Exceptions\InvalidQueryPartException;
 use VirtualSql\Exceptions\UndefinedQueryPartException;
 use VirtualSql\SqlBuilder\VirtualSqlBuilder;
 
+/**
+ * VirtualSqlQuery and its child classes are responsible for interacting with the consuming PHP app.
+ * They provide a series of helper functions for adding and manipulating their represented query, allowing programmatic changing of the query from the consumer.
+ * They finally provide functions to convert them into their corresponding SQL query / named parameter arrays.
+ */
 abstract class VirtualSqlQuery
 {
 	const TYPE_SELECT = 0;
