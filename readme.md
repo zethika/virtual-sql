@@ -5,9 +5,7 @@ queries.
 It allows working with query structures via a singular VirtualSqlQuery class, abstracting the actual MySQL syntax away
 from consideration.
 
-## Usage
-
-### Table definitions
+## Table definitions
 
 Virtual SQL provides a class (VirtualSqlTable) for defining a database table and its columns, which needs to be used
 when working with queries towards those tables.  
@@ -35,7 +33,7 @@ $generator->init($pdo);
 $tableDefinition = $generator->generateTableDefinition('table_name');
 ```
 
-### Queries
+## Queries
 
 Queries are built using child classes of VirtualSqlQuery and is the programmatic interface, with which the runtime
 builds the query.  
@@ -51,13 +49,15 @@ use VirtualSql\Query\VirtualSqlQuery;
 $query = VirtualSqlQuery::factory(VirtualSqlQuery::TYPE_SELECT,$table);
 ```
 
-#### Query config parameter
+### Query config parameter
 
 A third parameter can be provided to the factory method, an associative array $config.  
+This can be used to set most values in a query at instantiation.  
+
 The possible keys for it depends on the specific Query type. All values set via the $config parameter can also be
 manipulated via method calls after instantiation.
 
-##### SELECT
+#### SELECT
 
 ```
 $query = VirtualSqlQuery::factory(VirtualSqlQuery::TYPE_SELECT,$table, [
@@ -80,7 +80,7 @@ $query = VirtualSqlQuery::factory(VirtualSqlQuery::TYPE_SELECT,$table, [
 ]);
 ```
 
-##### INSERT
+#### INSERT
 
 ```
 $query = VirtualSqlQuery::factory(VirtualSqlQuery::TYPE_INSERT,$table, [
@@ -106,7 +106,7 @@ $query = VirtualSqlQuery::factory(VirtualSqlQuery::TYPE_INSERT,$table, [
 ]);
 ```
 
-##### UPDATE
+#### UPDATE
 
 ```
 $query = VirtualSqlQuery::factory(VirtualSqlQuery::TYPE_UPDATE,$table, [
@@ -127,7 +127,7 @@ $query = VirtualSqlQuery::factory(VirtualSqlQuery::TYPE_UPDATE,$table, [
 ]);
 ```
 
-##### DELETE
+#### DELETE
 
 ```
 $query = VirtualSqlQuery::factory(VirtualSqlQuery::TYPE_DELETE,$table, [
@@ -143,9 +143,7 @@ $query = VirtualSqlQuery::factory(VirtualSqlQuery::TYPE_DELETE,$table, [
 ]);
 ```
 
-### Full example
-
-#### SELECT
+## Full example
 
 ```
 <?php
@@ -207,11 +205,11 @@ $sql = $query->getSql();
 $parameters = $query->getNamedParameters();
 ```
 
-### Helpers
+## Helpers
 Depending on which type of VirtualSqlQuery is being worked, there are a number of helper methods present on the instance to add / manipulate the various parts.  
 For example to create joins on a select query, there is "innerJoin", "leftJoin", "rightJoin" and "outerJoin" methods which take a $from & $to column, as well as optionally a condition set
 
-### Conditions
+## Conditions
 Virtual SQL uses VirtualSqlCondition instances to describe individual conditions and VirtualSqlConditionSet to describe sets of conditions.  
 To help build them Virtual SQL provides the class VirtualSqlConditionSetBuilder which has a series of static methods to build conditions and condition sets
 
