@@ -6,7 +6,7 @@ use JetBrains\PhpStorm\Pure;
 use VirtualSql\Definition\VirtualSqlColumn;
 use VirtualSql\Definition\VirtualSqlTable;
 use VirtualSql\Exceptions\InvalidQueryPartException;
-use VirtualSql\Query\VirtualSqlSelectQuery;
+use VirtualSql\Query\VirtualSqlQuery;
 use VirtualSql\QueryParts\Element\ConditionValue\VirtualSqlArrayConditionValue;
 use VirtualSql\QueryParts\Element\ConditionValue\VirtualSqlBetweenConditionValue;
 use VirtualSql\QueryParts\Element\VirtualSqlCondition;
@@ -16,9 +16,9 @@ use VirtualSql\VirtualSql;
 class VirtualSqlQuerySqlBuilder
 {
 	/**
-	 * @var VirtualSqlSelectQuery
+	 * @var VirtualSqlQuery
 	 */
-	private VirtualSqlSelectQuery $query;
+	private VirtualSqlQuery $query;
 
 	/**
 	 * @var string[]
@@ -41,9 +41,9 @@ class VirtualSqlQuerySqlBuilder
 	private array $namedParameters = [];
 
 	/**
-	 * @param VirtualSqlSelectQuery $query
+	 * @param VirtualSqlQuery $query
 	 */
-	public function __construct(VirtualSqlSelectQuery $query)
+	public function __construct(VirtualSqlQuery $query)
 	{
 		$this->query = $query;
 	}
