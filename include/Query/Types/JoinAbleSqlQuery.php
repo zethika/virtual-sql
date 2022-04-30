@@ -26,16 +26,6 @@ abstract class JoinAbleSqlQuery extends VirtualSqlQuery
 	}
 
 	/**
-	 * @param VirtualSqlJoin[] $joins
-	 * @return JoinAbleSqlQuery
-	 */
-	public function setJoins(array $joins): JoinAbleSqlQuery
-	{
-		$this->joins = $joins;
-		return $this;
-	}
-
-	/**
 	 * @param VirtualSqlColumn $from
 	 * @param VirtualSqlColumn $to
 	 * @param VirtualSqlConditionSet|null $conditions
