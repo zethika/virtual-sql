@@ -2,7 +2,7 @@
 
 namespace VirtualSql\Query;
 
-use VirtualSql\Query\Types\WhereAbleSqlQuery;
+use VirtualSql\Query\Partials\WhereAbleSqlQuery;
 
 class VirtualSqlUpdateQuery extends WhereAbleSqlQuery
 {

@@ -7,7 +7,7 @@ use VirtualSql\Definition\VirtualSqlColumn;
 use VirtualSql\Definition\VirtualSqlTable;
 use VirtualSql\Exceptions\InvalidQueryPartException;
 use VirtualSql\Exceptions\UndefinedQueryPartException;
-use VirtualSql\Query\SqlBuilder\VirtualSqlQuerySqlBuilder;
+use VirtualSql\SqlBuilder\VirtualSqlBuilder;
 
 abstract class VirtualSqlQuery
 {
@@ -22,8 +22,6 @@ abstract class VirtualSqlQuery
 		self::TYPE_UPDATE => VirtualSqlUpdateQuery::class,
 		self::TYPE_DELETE => VirtualSqlDeleteQuery::class
 	];
-
-
 
 	/**
 	 * @param int $type
@@ -50,9 +48,9 @@ abstract class VirtualSqlQuery
 	protected array $tables = [];
 
 	/**
-	 * @var VirtualSqlQuerySqlBuilder
+	 * @var VirtualSqlBuilder
 	 */
-	private VirtualSqlQuerySqlBuilder $builder;
+	private VirtualSqlBuilder $builder;
 
 	/**
 	 * @param VirtualSqlTable $baseTable
@@ -62,13 +60,13 @@ abstract class VirtualSqlQuery
 		$this->baseTable = $baseTable;
 
 		$this->ensureTable($baseTable);
-		$this->builder = new VirtualSqlQuerySqlBuilder($this);
+		$this->builder = new VirtualSqlBuilder($this);
 	}
 
 	/**
-	 * @return VirtualSqlQuerySqlBuilder
+	 * @return VirtualSqlBuilder
 	 */
-	public function getBuilder(): VirtualSqlQuerySqlBuilder
+	public function getBuilder(): VirtualSqlBuilder
 	{
 		return $this->builder;
 	}

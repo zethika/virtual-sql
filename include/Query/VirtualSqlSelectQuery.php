@@ -4,7 +4,7 @@ namespace VirtualSql\Query;
 
 use VirtualSql\Definition\VirtualSqlColumn;
 use VirtualSql\Definition\VirtualSqlTable;
-use VirtualSql\Query\Types\OffsetAbleSqlQuery;
+use VirtualSql\Query\Partials\OffsetAbleSqlQuery;
 
 class VirtualSqlSelectQuery extends OffsetAbleSqlQuery
 {

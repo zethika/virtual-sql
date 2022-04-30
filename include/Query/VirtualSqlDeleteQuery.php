@@ -2,7 +2,7 @@
 
 namespace VirtualSql\Query;
 
-use VirtualSql\Query\Types\LimitAbleSqlQuery;
+use VirtualSql\Query\Partials\LimitAbleSqlQuery;
 
 class VirtualSqlDeleteQuery extends LimitAbleSqlQuery
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace VirtualSql\Query\Types;
+namespace VirtualSql\Query\Partials;
 
 use VirtualSql\Definition\VirtualSqlTable;
 use VirtualSql\Query\VirtualSqlQuery;
