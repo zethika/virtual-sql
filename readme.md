@@ -5,6 +5,10 @@ queries.
 It allows working with query structures via a singular VirtualSqlQuery class, abstracting the actual MySQL syntax away
 from consideration.
 
+## Installation
+```
+composer require zethika/virtual-sql
+```
 ## Table definitions
 
 Virtual SQL provides a class (VirtualSqlTable) for defining a database table and its columns, which needs to be used
