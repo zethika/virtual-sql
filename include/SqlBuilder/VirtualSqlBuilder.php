@@ -13,40 +13,15 @@ use VirtualSql\QueryParts\Element\VirtualSqlCondition;
 use VirtualSql\QueryParts\Element\VirtualSqlConditionSet;
 use VirtualSql\VirtualSqlConstant;
 
-class VirtualSqlQuerySqlBuilder
+abstract class VirtualSqlBuilder
 {
-	/**
-	 * @var VirtualSqlQuery
-	 */
-	private VirtualSqlQuery $query;
-
-	/**
-	 * @var string[]
-	 */
-	private array $selectParts = [];
-
-	/**
-	 * @var string[]
-	 */
-	private array $joinParts = [];
-
-	/**
-	 * @var string
-	 */
-	private string $where = '';
-
 	/**
 	 * @var array
 	 */
-	private array $namedParameters = [];
+	protected array $namedParameters = [];
 
-	/**
-	 * @param VirtualSqlQuery $query
-	 */
-	public function __construct(VirtualSqlQuery $query)
-	{
-		$this->query = $query;
-	}
+
+	abstract protected function getQuery(): VirtualSqlQuery;
 
 	/**
 	 * @return array
@@ -57,79 +32,9 @@ class VirtualSqlQuerySqlBuilder
 	}
 
 	/**
-	 * @throws InvalidQueryPartException
+	 * @return string
 	 */
-	public function getSql(): string
-	{
-		$this->populateSelects();
-		$this->populateJoins();
-		$this->populateWhere();
-
-		return $this->buildString();
-	}
-
-	/**
-	 *
-	 */
-	#[Pure] private function buildString(): string
-	{
-		$string = 'SELECT '.implode(',',$this->selectParts).' FROM '.$this->getAliasedTableName($this->query->getBaseTable());
-
-		if(count($this->joinParts) > 0)
-			$string .= ' '.implode(' ',$this->joinParts);
-
-		if(strlen($this->where) > 0)
-			$string .= ' WHERE '.$this->where;
-
-		if($this->query->getLimit() !== null)
-			$string .= ' LIMIT '.$this->query->getLimit();
-
-		if($this->query->getOffset() !== null)
-			$string .= ' OFFSET '.$this->query->getOffset();
-
-		return $string;
-	}
-
-	/**
-	 * Populates the where portion of the query
-	 * @throws InvalidQueryPartException
-	 */
-	private function populateWhere()
-	{
-		if(count($this->query->getWhere()->getConditions()) !== 0)
-			$this->where = $this->buildConditionSetString($this->query->getWhere());
-	}
-
-	/**
-	 * Populates the join portion of the query
-	 * @throws InvalidQueryPartException
-	 */
-	private function populateJoins()
-	{
-		foreach ($this->query->getJoins() as $join)
-		{
-			$string = $join->getType().' JOIN '.$this->getAliasedTableName($join->getToColumn()->getTable()).' ON ('.$this->getTableAliasedColumnString($join->getFromColumn()).' = '.$this->getTableAliasedColumnString($join->getToColumn());
-
-			if($join->getConditionSet() !== null)
-				$string .= ' AND '.$this->buildConditionSetString($join->getConditionSet());
-
-			$this->joinParts[] = $string.')';
-		}
-	}
-
-	/**
-	 * Populates the select portion of the query
-	 */
-	private function populateSelects()
-	{
-		if(count($this->query->getSelects()) === 0)
-		{
-			$this->selectParts[] = VirtualSqlConstant::KEYWORD_WILDCARD;
-			return;
-		}
-
-		$this->selectParts = array_map(fn(VirtualSqlColumn $column) => $this->getFullyAliasedColumnString($column), $this->query->getSelects());
-	}
+	abstract public function getSql(): string;
 
 	/**
 	 * Builds the sql string representing a condition set, and adds its values to the variables array
@@ -138,7 +43,7 @@ class VirtualSqlQuerySqlBuilder
 	 * @return string
 	 * @throws InvalidQueryPartException
 	 */
-	private function buildConditionSetString(VirtualSqlConditionSet $conditionSet): string
+	protected function buildConditionSetString(VirtualSqlConditionSet $conditionSet): string
 	{
 		$parts = [];
 		foreach ($conditionSet->getConditions() as $condition)
@@ -227,7 +132,7 @@ class VirtualSqlQuerySqlBuilder
 	 * @param VirtualSqlTable $table
 	 * @return string
 	 */
-	#[Pure] private function getAliasedTableName(VirtualSqlTable $table): string
+	#[Pure] protected function getAliasedTableName(VirtualSqlTable $table): string
 	{
 		return $table->getAlias() !== null ? $table->getName().' as '.$table->getAlias() : $table->getName();
 	}
@@ -238,7 +143,7 @@ class VirtualSqlQuerySqlBuilder
 	 * @param VirtualSqlColumn $column
 	 * @return string
 	 */
-	#[Pure] private function getTableAliasedColumnString(VirtualSqlColumn $column): string
+	#[Pure] protected function getTableAliasedColumnString(VirtualSqlColumn $column): string
 	{
 		$tableAlias = $column->getTable() instanceof VirtualSqlTable ? $column->getTable()->getAlias() : null;
 		return $tableAlias === null ? $column->getColumn() : $tableAlias.'.'.$column->getColumn();
@@ -250,7 +155,7 @@ class VirtualSqlQuerySqlBuilder
 	 * @param VirtualSqlColumn $column
 	 * @return string
 	 */
-	#[Pure] private function getFullyAliasedColumnString(VirtualSqlColumn $column): string
+	#[Pure] protected function getFullyAliasedColumnString(VirtualSqlColumn $column): string
 	{
 		$base = $this->getTableAliasedColumnString($column);
 		return $column->getAlias() === null ? $base : $base.' as '.$column->getAlias();
