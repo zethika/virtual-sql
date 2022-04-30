@@ -46,10 +46,12 @@ class VirtualSqlInsertQuery extends VirtualSqlQuery
 
 	/**
 	 * @param VirtualSqlColumn[] $columns
+	 * @return VirtualSqlInsertQuery
 	 */
-	public function setColumns(array $columns): void
+	public function setColumns(array $columns): VirtualSqlInsertQuery
 	{
 		$this->columns = $columns;
+		return $this;
 	}
 
 	/**
@@ -62,18 +64,22 @@ class VirtualSqlInsertQuery extends VirtualSqlQuery
 
 	/**
 	 * @param array[] $valueSets
+	 * @return VirtualSqlInsertQuery
 	 */
-	public function setValueSets(array $valueSets): void
+	public function setValueSets(array $valueSets): VirtualSqlInsertQuery
 	{
 		$this->valueSets = $valueSets;
+		return $this;
 	}
 
 	/**
-	 * @param array $valueSet
+	 * @param array $set
+	 * @return VirtualSqlInsertQuery
 	 */
-	public function addValueSet(array $valueSet): void
+	public function addValueSet(array $set): VirtualSqlInsertQuery
 	{
-		$this->valueSets[] = $valueSet;
+		$this->valueSets[] = $set;
+		return $this;
 	}
 
 	/**
@@ -86,9 +92,11 @@ class VirtualSqlInsertQuery extends VirtualSqlQuery
 
 	/**
 	 * @param VirtualSqlColumn[] $onDuplicateUpdateColumns
+	 * @return VirtualSqlInsertQuery
 	 */
-	public function setOnDuplicateUpdateColumns(array $onDuplicateUpdateColumns): void
+	public function setOnDuplicateUpdateColumns(array $onDuplicateUpdateColumns): VirtualSqlInsertQuery
 	{
 		$this->onDuplicateUpdateColumns = $onDuplicateUpdateColumns;
+		return $this;
 	}
 }
