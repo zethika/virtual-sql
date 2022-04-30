@@ -227,3 +227,5 @@ $conditionSet = VirtualSqlConditionSetBuilder::andX(
     )
 )
 ```
+
+After instantiation, conditions may still be manipulated and added / removed to, as would be expected.
