@@ -227,10 +227,3 @@ $conditionSet = VirtualSqlConditionSetBuilder::andX(
     )
 )
 ```
-
-## About
-
-An attempt to see if I could replicate the parts of Doctrine specifically about manipulating SQL, at least for MySQL
-tables, in my own package.  
-With this, I wanted to remove the manual handling of writing the SQL syntax, and provide a better framework for
-manipulating the query programmatically at runtime, without having to work a lot with strings and placement logics.
