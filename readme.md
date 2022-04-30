@@ -207,6 +207,25 @@ $sql = $query->getSql();
 $parameters = $query->getNamedParameters();
 ```
 
+### Helpers
+Depending on which type of VirtualSqlQuery is being worked, there are a number of helper methods present on the instance to add / manipulate the various parts.  
+For example to create joins on a select query, there is "innerJoin", "leftJoin", "rightJoin" and "outerJoin" methods which take a $from & $to column, as well as optionally a condition set
+
+### Conditions
+Virtual SQL uses VirtualSqlCondition instances to describe individual conditions and VirtualSqlConditionSet to describe sets of conditions.  
+To help build them Virtual SQL provides the class VirtualSqlConditionSetBuilder which has a series of static methods to build conditions and condition sets
+
+```
+$conditionSet = VirtualSqlConditionSetBuilder::andX(
+    VirtualSqlConditionSetBuilder::condition($table1->getColumn('some_column'),'?'),
+    VirtualSqlConditionSetBuilder::condition($table1->getColumn('another_column'),'?'),
+    VirtualSqlConditionSetBuilder::orX(
+        VirtualSqlConditionSetBuilder::condition($table2->getColumn('a_third_column'),'?'),
+        VirtualSqlConditionSetBuilder::condition($table2->getColumn('a_fourth_column'),'?')
+    )
+)
+```
+
 ## About
 
 An attempt to see if I could replicate the parts of Doctrine specifically about manipulating SQL, at least for MySQL
