@@ -66,7 +66,7 @@ class VirtualSqlInsertBuilder extends VirtualSqlBuilder
 	private function parseAddValue(VirtualSqlColumn $column, $value): string
 	{
 		if($value === null && $column->isNullable() === false)
-			throw new InvalidQueryPartException('Column "'.$column->getColumn().'" must have a value');
+			throw new InvalidQueryPartException('Column "'.$column->getColumn().'" may not be null');
 
 		return $value === null ? 'NULL' : $this->addNamedParameter($value);
 	}
