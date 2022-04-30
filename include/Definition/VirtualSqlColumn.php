@@ -4,7 +4,7 @@ namespace VirtualSql\Definition;
 
 
 use JetBrains\PhpStorm\Pure;
-use VirtualSql\VirtualSql;
+use VirtualSql\VirtualSqlConstant;
 
 class VirtualSqlColumn
 {
@@ -126,7 +126,7 @@ class VirtualSqlColumn
 	 */
 	#[Pure] public function isPrimaryKeyColumn(): bool
 	{
-		return $this->hasExtra(VirtualSql::EXTRA_PRIMARY_KEY);
+		return $this->hasExtra(VirtualSqlConstant::EXTRA_PRIMARY_KEY);
 	}
 
 	/**

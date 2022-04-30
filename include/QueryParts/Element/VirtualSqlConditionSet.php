@@ -2,13 +2,13 @@
 
 namespace VirtualSql\QueryParts\Element;
 
-use VirtualSql\VirtualSql;
+use VirtualSql\VirtualSqlConstant;
 
 class VirtualSqlConditionSet
 {
 	public static array $acceptedOperators = [
-		VirtualSql::OPERATOR_AND => VirtualSql::OPERATOR_AND,
-		VirtualSql::OPERATOR_OR => VirtualSql::OPERATOR_OR
+		VirtualSqlConstant::OPERATOR_AND => VirtualSqlConstant::OPERATOR_AND,
+		VirtualSqlConstant::OPERATOR_OR => VirtualSqlConstant::OPERATOR_OR
 	];
 
 	/**

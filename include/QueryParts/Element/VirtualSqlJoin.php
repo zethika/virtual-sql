@@ -4,15 +4,15 @@ namespace VirtualSql\QueryParts\Element;
 
 use VirtualSql\Definition\VirtualSqlColumn;
 use VirtualSql\Exceptions\InvalidQueryPartException;
-use VirtualSql\VirtualSql;
+use VirtualSql\VirtualSqlConstant;
 
 class VirtualSqlJoin
 {
 	public static array $acceptedJoinTypes = [
-		VirtualSql::JOIN_TYPE_INNER => VirtualSql::JOIN_TYPE_INNER,
-		VirtualSql::JOIN_TYPE_OUTER => VirtualSql::JOIN_TYPE_OUTER,
-		VirtualSql::JOIN_TYPE_LEFT => VirtualSql::JOIN_TYPE_LEFT,
-		VirtualSql::JOIN_TYPE_RIGHT => VirtualSql::JOIN_TYPE_RIGHT,
+		VirtualSqlConstant::JOIN_TYPE_INNER => VirtualSqlConstant::JOIN_TYPE_INNER,
+		VirtualSqlConstant::JOIN_TYPE_OUTER => VirtualSqlConstant::JOIN_TYPE_OUTER,
+		VirtualSqlConstant::JOIN_TYPE_LEFT => VirtualSqlConstant::JOIN_TYPE_LEFT,
+		VirtualSqlConstant::JOIN_TYPE_RIGHT => VirtualSqlConstant::JOIN_TYPE_RIGHT,
 	];
 
 	/**

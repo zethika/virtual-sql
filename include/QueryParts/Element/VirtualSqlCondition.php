@@ -5,21 +5,21 @@ namespace VirtualSql\QueryParts\Element;
 use VirtualSql\Definition\VirtualSqlColumn;
 use VirtualSql\Exceptions\InvalidQueryPartException;
 use VirtualSql\QueryParts\Element\ConditionValue\VirtualSqlConditionValue;
-use VirtualSql\VirtualSql;
+use VirtualSql\VirtualSqlConstant;
 
 class VirtualSqlCondition
 {
 	public static array $acceptedComparators = [
-		VirtualSql::COMPARATOR_EQUALS => VirtualSql::COMPARATOR_EQUALS,
-		VirtualSql::COMPARATOR_NOT_EQUALS => VirtualSql::COMPARATOR_NOT_EQUALS,
-		VirtualSql::COMPARATOR_LIKE => VirtualSql::COMPARATOR_LIKE,
-		VirtualSql::COMPARATOR_LESS_THAN => VirtualSql::COMPARATOR_LESS_THAN,
-		VirtualSql::COMPARATOR_LESS_EQUAL_THAN => VirtualSql::COMPARATOR_LESS_EQUAL_THAN,
-		VirtualSql::COMPARATOR_GREATER_EQUAL_THAN => VirtualSql::COMPARATOR_GREATER_EQUAL_THAN,
-		VirtualSql::COMPARATOR_GREATER_THAN => VirtualSql::COMPARATOR_GREATER_THAN,
-		VirtualSql::COMPARATOR_IN => VirtualSql::COMPARATOR_IN,
-		VirtualSql::COMPARATOR_NOT_IN => VirtualSql::COMPARATOR_NOT_IN,
-		VirtualSql::COMPARATOR_BETWEEN => VirtualSql::COMPARATOR_BETWEEN,
+		VirtualSqlConstant::COMPARATOR_EQUALS => VirtualSqlConstant::COMPARATOR_EQUALS,
+		VirtualSqlConstant::COMPARATOR_NOT_EQUALS => VirtualSqlConstant::COMPARATOR_NOT_EQUALS,
+		VirtualSqlConstant::COMPARATOR_LIKE => VirtualSqlConstant::COMPARATOR_LIKE,
+		VirtualSqlConstant::COMPARATOR_LESS_THAN => VirtualSqlConstant::COMPARATOR_LESS_THAN,
+		VirtualSqlConstant::COMPARATOR_LESS_EQUAL_THAN => VirtualSqlConstant::COMPARATOR_LESS_EQUAL_THAN,
+		VirtualSqlConstant::COMPARATOR_GREATER_EQUAL_THAN => VirtualSqlConstant::COMPARATOR_GREATER_EQUAL_THAN,
+		VirtualSqlConstant::COMPARATOR_GREATER_THAN => VirtualSqlConstant::COMPARATOR_GREATER_THAN,
+		VirtualSqlConstant::COMPARATOR_IN => VirtualSqlConstant::COMPARATOR_IN,
+		VirtualSqlConstant::COMPARATOR_NOT_IN => VirtualSqlConstant::COMPARATOR_NOT_IN,
+		VirtualSqlConstant::COMPARATOR_BETWEEN => VirtualSqlConstant::COMPARATOR_BETWEEN,
 	];
 
 	/**

@@ -8,7 +8,7 @@ use VirtualSql\Exceptions\InvalidQueryPartException;
 use VirtualSql\Query\VirtualSqlQuery;
 use VirtualSql\QueryParts\Element\VirtualSqlConditionSet;
 use VirtualSql\QueryParts\Element\VirtualSqlJoin;
-use VirtualSql\VirtualSql;
+use VirtualSql\VirtualSqlConstant;
 
 abstract class JoinAbleSqlQuery extends VirtualSqlQuery
 {
@@ -45,7 +45,7 @@ abstract class JoinAbleSqlQuery extends VirtualSqlQuery
 	 */
 	public function leftJoin(VirtualSqlColumn $from, VirtualSqlColumn $to, ?VirtualSqlConditionSet $conditions = null): JoinAbleSqlQuery
 	{
-		return $this->join(VirtualSql::JOIN_TYPE_LEFT,...func_get_args());
+		return $this->join(VirtualSqlConstant::JOIN_TYPE_LEFT,...func_get_args());
 	}
 
 	/**
@@ -57,7 +57,7 @@ abstract class JoinAbleSqlQuery extends VirtualSqlQuery
 	 */
 	public function rightJoin(VirtualSqlColumn $from, VirtualSqlColumn $to, ?VirtualSqlConditionSet $conditions = null): JoinAbleSqlQuery
 	{
-		return $this->join(VirtualSql::JOIN_TYPE_RIGHT,...func_get_args());
+		return $this->join(VirtualSqlConstant::JOIN_TYPE_RIGHT,...func_get_args());
 	}
 
 	/**
@@ -69,7 +69,7 @@ abstract class JoinAbleSqlQuery extends VirtualSqlQuery
 	 */
 	public function outerJoin(VirtualSqlColumn $from, VirtualSqlColumn $to, ?VirtualSqlConditionSet $conditions = null): JoinAbleSqlQuery
 	{
-		return $this->join(VirtualSql::JOIN_TYPE_OUTER,...func_get_args());
+		return $this->join(VirtualSqlConstant::JOIN_TYPE_OUTER,...func_get_args());
 	}
 
 	/**
@@ -81,7 +81,7 @@ abstract class JoinAbleSqlQuery extends VirtualSqlQuery
 	 */
 	public function innerJoin(VirtualSqlColumn $from, VirtualSqlColumn $to, ?VirtualSqlConditionSet $conditions = null): JoinAbleSqlQuery
 	{
-		return $this->join(VirtualSql::JOIN_TYPE_INNER,...func_get_args());
+		return $this->join(VirtualSqlConstant::JOIN_TYPE_INNER,...func_get_args());
 	}
 
 	/**

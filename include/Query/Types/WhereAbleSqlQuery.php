@@ -6,7 +6,7 @@ use VirtualSql\Definition\VirtualSqlTable;
 use VirtualSql\Query\VirtualSqlQuery;
 use VirtualSql\QueryParts\Element\VirtualSqlCondition;
 use VirtualSql\QueryParts\Element\VirtualSqlConditionSet;
-use VirtualSql\VirtualSql;
+use VirtualSql\VirtualSqlConstant;
 
 abstract class WhereAbleSqlQuery extends JoinAbleSqlQuery
 {
@@ -21,7 +21,7 @@ abstract class WhereAbleSqlQuery extends JoinAbleSqlQuery
 	 */
 	public function __construct(VirtualSqlTable $baseTable, array $config)
 	{
-		$this->where = isset($config['where']) && $config['where'] instanceof VirtualSqlConditionSet ? $config['where'] : new VirtualSqlConditionSet(VirtualSql::OPERATOR_AND);
+		$this->where = isset($config['where']) && $config['where'] instanceof VirtualSqlConditionSet ? $config['where'] : new VirtualSqlConditionSet(VirtualSqlConstant::OPERATOR_AND);
 		parent::__construct($baseTable,$config);
 	}
 

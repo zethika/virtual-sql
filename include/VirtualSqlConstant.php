@@ -2,7 +2,7 @@
 
 namespace VirtualSql;
 
-class VirtualSql
+class VirtualSqlConstant
 {
 	/**
 	 * OPERATORS

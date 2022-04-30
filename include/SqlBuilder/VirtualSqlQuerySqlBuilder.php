@@ -11,7 +11,7 @@ use VirtualSql\QueryParts\Element\ConditionValue\VirtualSqlArrayConditionValue;
 use VirtualSql\QueryParts\Element\ConditionValue\VirtualSqlBetweenConditionValue;
 use VirtualSql\QueryParts\Element\VirtualSqlCondition;
 use VirtualSql\QueryParts\Element\VirtualSqlConditionSet;
-use VirtualSql\VirtualSql;
+use VirtualSql\VirtualSqlConstant;
 
 class VirtualSqlQuerySqlBuilder
 {
@@ -124,7 +124,7 @@ class VirtualSqlQuerySqlBuilder
 	{
 		if(count($this->query->getSelects()) === 0)
 		{
-			$this->selectParts[] = VirtualSql::KEYWORD_WILDCARD;
+			$this->selectParts[] = VirtualSqlConstant::KEYWORD_WILDCARD;
 			return;
 		}
 
@@ -166,8 +166,8 @@ class VirtualSqlQuerySqlBuilder
 
 		$string .= match ($condition->getComparator())
 		{
-			VirtualSql::COMPARATOR_IN, VirtualSql::COMPARATOR_NOT_IN => $this->buildInNotInConditionString($condition),
-			VirtualSql::COMPARATOR_BETWEEN => $this->buildBetweenConditionString($condition),
+			VirtualSqlConstant::COMPARATOR_IN, VirtualSqlConstant::COMPARATOR_NOT_IN => $this->buildInNotInConditionString($condition),
+			VirtualSqlConstant::COMPARATOR_BETWEEN => $this->buildBetweenConditionString($condition),
 			default => $this->buildDefaultConditionString($condition),
 		};
 

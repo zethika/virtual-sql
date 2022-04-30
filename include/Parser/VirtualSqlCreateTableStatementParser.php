@@ -6,7 +6,7 @@ use VirtualSql\Definition\VirtualSqlColumn;
 use VirtualSql\Definition\VirtualSqlTable;
 use VirtualSql\Exceptions\InvalidStatementPartException;
 use VirtualSql\Traits\SingletonTrait;
-use VirtualSql\VirtualSql;
+use VirtualSql\VirtualSqlConstant;
 
 class VirtualSqlCreateTableStatementParser
 {
@@ -46,11 +46,11 @@ class VirtualSqlCreateTableStatementParser
 		$columns = explode("\n",$columnsString);
 		foreach ($columns as $column){
 			$column = trim($column);
-			if(str_contains($column,VirtualSql::EXTRA_PRIMARY_KEY))
+			if(str_contains($column,VirtualSqlConstant::EXTRA_PRIMARY_KEY))
 			{
 				$this->parsePrimaryKeyColumn($column);
 			}
-			else if(str_contains($column,VirtualSql::EXTRA_UNIQUE))
+			else if(str_contains($column,VirtualSqlConstant::EXTRA_UNIQUE))
 			{
 				$this->parseUniqueColumn($column);
 			}
@@ -76,7 +76,7 @@ class VirtualSqlCreateTableStatementParser
 		foreach ($columns as $columnName)
 		{
 			if(isset($this->columns[$columnName]))
-				$this->columns[$columnName]->addExtra(VirtualSql::EXTRA_UNIQUE);
+				$this->columns[$columnName]->addExtra(VirtualSqlConstant::EXTRA_UNIQUE);
 		}
 	}
 
@@ -87,7 +87,7 @@ class VirtualSqlCreateTableStatementParser
 	{
 		preg_match('/PRIMARY KEY \(`(.*)`\)/is',$column,$matches);
 		if(count($matches) === 2 && isset($this->columns[$matches[1]]))
-			$this->columns[$matches[1]]->addExtra(VirtualSql::EXTRA_PRIMARY_KEY);
+			$this->columns[$matches[1]]->addExtra(VirtualSqlConstant::EXTRA_PRIMARY_KEY);
 	}
 
 	/**
@@ -117,14 +117,14 @@ class VirtualSqlCreateTableStatementParser
 	private function parseExtras(string $columnString): ?array
 	{
 		$extras = [];
-		if(str_contains($columnString,VirtualSql::EXTRA_AUTO_INCREMENT))
-			$extras[] = VirtualSql::EXTRA_AUTO_INCREMENT;
+		if(str_contains($columnString,VirtualSqlConstant::EXTRA_AUTO_INCREMENT))
+			$extras[] = VirtualSqlConstant::EXTRA_AUTO_INCREMENT;
 
-		if(str_contains($columnString,VirtualSql::EXTRA_UNIQUE))
-			$extras[] = VirtualSql::EXTRA_UNIQUE;
+		if(str_contains($columnString,VirtualSqlConstant::EXTRA_UNIQUE))
+			$extras[] = VirtualSqlConstant::EXTRA_UNIQUE;
 
-		if(str_contains($columnString,VirtualSql::EXTRA_ON_UPDATE_CURRENT_TIMESTAMP))
-			$extras[] = VirtualSql::EXTRA_ON_UPDATE_CURRENT_TIMESTAMP;
+		if(str_contains($columnString,VirtualSqlConstant::EXTRA_ON_UPDATE_CURRENT_TIMESTAMP))
+			$extras[] = VirtualSqlConstant::EXTRA_ON_UPDATE_CURRENT_TIMESTAMP;
 
 		return $extras;
 	}

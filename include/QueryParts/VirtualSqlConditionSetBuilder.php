@@ -8,7 +8,7 @@ use VirtualSql\Exceptions\InvalidQueryPartException;
 use VirtualSql\QueryParts\Element\ConditionValue\VirtualSqlConditionValue;
 use VirtualSql\QueryParts\Element\VirtualSqlCondition;
 use VirtualSql\QueryParts\Element\VirtualSqlConditionSet;
-use VirtualSql\VirtualSql;
+use VirtualSql\VirtualSqlConstant;
 
 class VirtualSqlConditionSetBuilder
 {
@@ -19,7 +19,7 @@ class VirtualSqlConditionSetBuilder
 	 * @return VirtualSqlCondition
 	 * @throws InvalidQueryPartException
 	 */
-	public static function condition(VirtualSqlColumn $column, $value, string $comparator = VirtualSql::COMPARATOR_EQUALS): VirtualSqlCondition
+	public static function condition(VirtualSqlColumn $column, $value, string $comparator = VirtualSqlConstant::COMPARATOR_EQUALS): VirtualSqlCondition
 	{
 		return new VirtualSqlCondition($column,VirtualSqlConditionValue::factory($column,$value),$comparator);
 	}
@@ -30,7 +30,7 @@ class VirtualSqlConditionSetBuilder
 	 */
 	#[Pure] public static function andX(...$pieces): VirtualSqlConditionSet
 	{
-		return self::createSet(VirtualSql::OPERATOR_AND,$pieces);
+		return self::createSet(VirtualSqlConstant::OPERATOR_AND,$pieces);
 	}
 
 	/**
@@ -39,7 +39,7 @@ class VirtualSqlConditionSetBuilder
 	 */
 	#[Pure] public static function orX(...$pieces): VirtualSqlConditionSet
 	{
-		return self::createSet(VirtualSql::OPERATOR_OR,$pieces);
+		return self::createSet(VirtualSqlConstant::OPERATOR_OR,$pieces);
 	}
 
 	/**
