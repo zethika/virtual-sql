@@ -5,7 +5,6 @@ namespace VirtualSql\Query;
 use VirtualSql\Definition\VirtualSqlColumn;
 use VirtualSql\Definition\VirtualSqlTable;
 use VirtualSql\Exceptions\UndefinedQueryPartException;
-use VirtualSql\VirtualSqlQueryBuilder;
 
 abstract class VirtualSqlQuery
 {
@@ -24,9 +23,8 @@ abstract class VirtualSqlQuery
 	/**
 	 * @param VirtualSqlTable $baseTable
 	 * @param int $type
-	 * @return VirtualSqlQueryBuilder
 	 */
-	public static function factory(VirtualSqlTable $baseTable, int $type = self::TYPE_SELECT): VirtualSqlQueryBuilder
+	public static function factory(int $type,VirtualSqlTable $baseTable)
 	{
 		return new self::TYPE_CLASS_MAP[$type]($baseTable);
 	}
