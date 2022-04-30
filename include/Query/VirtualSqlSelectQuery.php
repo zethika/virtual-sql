@@ -4,11 +4,7 @@ namespace VirtualSql\Query;
 
 use VirtualSql\Definition\VirtualSqlColumn;
 use VirtualSql\Definition\VirtualSqlTable;
-use VirtualSql\Query\SqlBuilder\VirtualSqlQuerySqlBuilder;
 use VirtualSql\Query\Types\OffsetAbleSqlQuery;
-use VirtualSql\QueryParts\Element\VirtualSqlConditionSet;
-use VirtualSql\QueryParts\Element\VirtualSqlJoin;
-use VirtualSql\VirtualSql;
 
 class VirtualSqlSelectQuery extends OffsetAbleSqlQuery
 {
@@ -18,22 +14,13 @@ class VirtualSqlSelectQuery extends OffsetAbleSqlQuery
 	private array $selects;
 
 	/**
-	 * @var VirtualSqlQuerySqlBuilder
-	 */
-	private VirtualSqlQuerySqlBuilder $sqlBuilder;
-
-	/**
 	 * @param VirtualSqlTable $from
-	 * @param VirtualSqlJoin[] $joins
-	 * @param VirtualSqlConditionSet|null $where
-	 * @param VirtualSqlColumn[] $selects
+	 * @param array $config
 	 */
-	public function __construct(VirtualSqlTable $from, array $joins = [], ?VirtualSqlConditionSet $where = null, array $selects = [])
+	public function __construct(VirtualSqlTable $from, array $config)
 	{
-		$this->joins = $joins;
-		$this->where = $where === null ? new VirtualSqlConditionSet(VirtualSql::OPERATOR_AND) : $where;
-		$this->selects = $selects;
-		parent::__construct($from);
+		$this->selects = isset($config['selects']) && is_array($config['selects']) ? array_values(array_filter($config['selects'],fn($select) => $select instanceof VirtualSqlColumn)) : [];
+		parent::__construct($from, $config);
 	}
 
 	/**

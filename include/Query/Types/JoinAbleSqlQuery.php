@@ -3,6 +3,7 @@
 namespace VirtualSql\Query\Types;
 
 use VirtualSql\Definition\VirtualSqlColumn;
+use VirtualSql\Definition\VirtualSqlTable;
 use VirtualSql\Exceptions\InvalidQueryPartException;
 use VirtualSql\Query\VirtualSqlQuery;
 use VirtualSql\QueryParts\Element\VirtualSqlConditionSet;
@@ -16,6 +17,16 @@ abstract class JoinAbleSqlQuery extends VirtualSqlQuery
 	 * @var VirtualSqlJoin[]
 	 */
 	protected array $joins = [];
+
+	/**
+	 * @param VirtualSqlTable $baseTable
+	 * @param array $config
+	 */
+	public function __construct(VirtualSqlTable $baseTable, array $config)
+	{
+		$this->joins = isset($config['joins']) && is_array($config['joins']) ? array_values(array_filter($config['joins'],fn($join) => $join instanceof VirtualSqlJoin)) : [];
+		parent::__construct($baseTable);
+	}
 
 	/**
 	 * @return VirtualSqlJoin[]

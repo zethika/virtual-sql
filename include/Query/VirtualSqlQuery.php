@@ -2,9 +2,12 @@
 
 namespace VirtualSql\Query;
 
+use JetBrains\PhpStorm\Pure;
 use VirtualSql\Definition\VirtualSqlColumn;
 use VirtualSql\Definition\VirtualSqlTable;
+use VirtualSql\Exceptions\InvalidQueryPartException;
 use VirtualSql\Exceptions\UndefinedQueryPartException;
+use VirtualSql\Query\SqlBuilder\VirtualSqlQuerySqlBuilder;
 
 abstract class VirtualSqlQuery
 {
@@ -20,13 +23,17 @@ abstract class VirtualSqlQuery
 		self::TYPE_DELETE => VirtualSqlDeleteQuery::class
 	];
 
+
+
 	/**
-	 * @param VirtualSqlTable $baseTable
 	 * @param int $type
+	 * @param VirtualSqlTable $baseTable
+	 * @param array $config
+	 * @return VirtualSqlQuery
 	 */
-	public static function factory(int $type,VirtualSqlTable $baseTable)
+	public static function factory(int $type,VirtualSqlTable $baseTable, array $config = []): VirtualSqlQuery
 	{
-		return new self::TYPE_CLASS_MAP[$type]($baseTable);
+		return new (self::TYPE_CLASS_MAP[$type])($baseTable,$config);
 	}
 
 	/**
@@ -43,6 +50,11 @@ abstract class VirtualSqlQuery
 	protected array $tables = [];
 
 	/**
+	 * @var VirtualSqlQuerySqlBuilder
+	 */
+	private VirtualSqlQuerySqlBuilder $builder;
+
+	/**
 	 * @param VirtualSqlTable $baseTable
 	 */
 	public function __construct(VirtualSqlTable $baseTable)
@@ -50,6 +62,15 @@ abstract class VirtualSqlQuery
 		$this->baseTable = $baseTable;
 
 		$this->ensureTable($baseTable);
+		$this->builder = new VirtualSqlQuerySqlBuilder($this);
+	}
+
+	/**
+	 * @return VirtualSqlQuerySqlBuilder
+	 */
+	public function getBuilder(): VirtualSqlQuerySqlBuilder
+	{
+		return $this->builder;
 	}
 
 	/**
@@ -136,5 +157,21 @@ abstract class VirtualSqlQuery
 		return '_t'.$number;
 	}
 
+	/**
+	 * @return string
+	 * @throws InvalidQueryPartException
+	 */
+	public function getSql(): string
+	{
+		return $this->builder->getSql();
+	}
+
+	/**
+	 * @return array
+	 */
+	#[Pure] public function getNamedParameters(): array
+	{
+		return $this->builder->getNamedParameters();
+	}
 
 }

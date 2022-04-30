@@ -2,14 +2,24 @@
 
 namespace VirtualSql\Query\Types;
 
-use VirtualSql\Query\VirtualSqlQuery;
+use VirtualSql\Definition\VirtualSqlTable;
 
 abstract class OffsetAbleSqlQuery extends LimitAbleSqlQuery
 {
 	/**
 	 * @var int|null
 	 */
-	private int|null $offset;
+	protected int|null $offset;
+
+	/**
+	 * @param VirtualSqlTable $baseTable
+	 * @param array $config
+	 */
+	public function __construct(VirtualSqlTable $baseTable, array $config)
+	{
+		$this->offset = isset($config['offset']) && is_integer($config['offset']) ? (int)$config['offset'] : null;
+		parent::__construct($baseTable,$config);
+	}
 
 	/**
 	 * @return int|null

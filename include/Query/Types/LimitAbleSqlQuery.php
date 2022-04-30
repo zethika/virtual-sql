@@ -2,14 +2,24 @@
 
 namespace VirtualSql\Query\Types;
 
-use VirtualSql\Query\VirtualSqlQuery;
+use VirtualSql\Definition\VirtualSqlTable;
 
 abstract class LimitAbleSqlQuery extends WhereAbleSqlQuery
 {
 	/**
 	 * @var int|null
 	 */
-	private int|null $limit;
+	protected int|null $limit;
+
+	/**
+	 * @param VirtualSqlTable $baseTable
+	 * @param array $config
+	 */
+	public function __construct(VirtualSqlTable $baseTable, array $config)
+	{
+		$this->limit = isset($config['limit']) && is_integer($config['limit']) ? (int)$config['limit'] : null;
+		parent::__construct($baseTable,$config);
+	}
 
 	/**
 	 * @return int|null
