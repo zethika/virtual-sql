@@ -1,6 +1,6 @@
 <?php
 
-namespace VirtualSql\Query\SqlBuilder;
+namespace VirtualSql\SqlBuilder;
 
 use JetBrains\PhpStorm\Pure;
 use VirtualSql\Definition\VirtualSqlColumn;
