@@ -9,7 +9,7 @@ abstract class OffsetAbleSqlQuery extends LimitAbleSqlQuery
     /**
      * @var int|null
      */
-    protected int|null $offset;
+    protected ?int $offset;
 
     /**
      * @param VirtualSqlTable $baseTable
@@ -17,7 +17,7 @@ abstract class OffsetAbleSqlQuery extends LimitAbleSqlQuery
      */
     public function __construct(VirtualSqlTable $baseTable, array $config)
     {
-        $this->offset = isset($config['offset']) && is_integer($config['offset']) ? (int)$config['offset'] : null;
+        $this->offset = isset($config['offset']) && is_numeric($config['offset']) ? (int)$config['offset'] : null;
         parent::__construct($baseTable, $config);
     }
 

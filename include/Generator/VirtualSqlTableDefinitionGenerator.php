@@ -42,7 +42,7 @@ class VirtualSqlTableDefinitionGenerator
      * @return VirtualSqlTable
      * @throws InvalidStatementPartException
      */
-    public function generateTableDefinition(string $table)
+    public function generateTableDefinition(string $table): VirtualSqlTable
     {
         if (!isset($this->tables[$table]))
             throw new InvalidStatementPartException('Unknown table "' . $table . '"');

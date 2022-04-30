@@ -3,7 +3,6 @@
 namespace VirtualSql\Definition;
 
 
-use JetBrains\PhpStorm\Pure;
 use VirtualSql\VirtualSqlConstant;
 
 class VirtualSqlColumn
@@ -21,7 +20,7 @@ class VirtualSqlColumn
     /**
      * @var int|string|null
      */
-    private null|int|string $length;
+    private $length;
 
     /**
      * @var bool
@@ -58,7 +57,7 @@ class VirtualSqlColumn
      * @param VirtualSqlTable|null $table
      * @param string|null $alias
      */
-    public function __construct(string $column, string $type, string|int|null $length = null, bool $nullable = false, callable|string|null $defaultValue = null, array $extras = [], ?VirtualSqlTable $table = null, ?string $alias = null)
+    public function __construct(string $column, string $type, $length = null, bool $nullable = false, $defaultValue = null, array $extras = [], ?VirtualSqlTable $table = null, ?string $alias = null)
     {
         $this->column = $column;
         $this->type = $type;
@@ -98,7 +97,7 @@ class VirtualSqlColumn
     /**
      * @return int|string|null
      */
-    public function getLength(): int|string|null
+    public function getLength()
     {
         return $this->length;
     }
@@ -124,7 +123,7 @@ class VirtualSqlColumn
     /**
      * Returns whether the column is the primary key column
      */
-    #[Pure] public function isPrimaryKeyColumn(): bool
+    public function isPrimaryKeyColumn(): bool
     {
         return $this->hasExtra(VirtualSqlConstant::EXTRA_PRIMARY_KEY);
     }
@@ -142,7 +141,7 @@ class VirtualSqlColumn
      * @param string $extra
      * @return $this
      */
-    public function addExtra(string $extra): static
+    public function addExtra(string $extra): VirtualSqlColumn
     {
         if (!$this->hasExtra($extra))
             $this->extras[] = $extra;

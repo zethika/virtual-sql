@@ -26,7 +26,7 @@ class VirtualSqlArrayConditionValue extends VirtualSqlConditionValue
         return $this->array;
     }
 
-    public function getValue()
+    public function getValue(): array
     {
         return $this->getArray();
     }

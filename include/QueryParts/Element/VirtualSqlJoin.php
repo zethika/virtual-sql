@@ -33,7 +33,7 @@ class VirtualSqlJoin
     /**
      * @var VirtualSqlConditionSet|null
      */
-    private VirtualSqlConditionSet|null $conditionSet;
+    private ?VirtualSqlConditionSet $conditionSet;
 
     /**
      * @param string $type

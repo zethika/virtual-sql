@@ -2,7 +2,6 @@
 
 namespace VirtualSql\QueryParts\Element\ConditionValue;
 
-use JetBrains\PhpStorm\Pure;
 use VirtualSql\Definition\VirtualSqlColumn;
 use VirtualSql\Exceptions\InvalidQueryPartException;
 
@@ -11,19 +10,19 @@ class VirtualSqlBetweenConditionValue extends VirtualSqlConditionValue
     /**
      * @var float|VirtualSqlColumn|int
      */
-    private float|VirtualSqlColumn|int $start;
+    private $start;
 
     /**
      * @var float|VirtualSqlColumn|int
      */
-    private float|VirtualSqlColumn|int $end;
+    private $end;
 
     /**
      * @param VirtualSqlColumn|int|float $start
      * @param VirtualSqlColumn|int|float $end
      * @throws InvalidQueryPartException
      */
-    public function __construct(VirtualSqlColumn|int|float $start, VirtualSqlColumn|int|float $end)
+    public function __construct($start, $end)
     {
         if ((!is_numeric($start) || is_string($start)) && !$start instanceof VirtualSqlColumn)
             throw new InvalidQueryPartException('Start is neither a number, nor an instance of a VirtualSqlColumn');
@@ -38,7 +37,7 @@ class VirtualSqlBetweenConditionValue extends VirtualSqlConditionValue
     /**
      * @return float|VirtualSqlColumn|int
      */
-    public function getStart(): float|int|VirtualSqlColumn
+    public function getStart()
     {
         return $this->start;
     }
@@ -46,12 +45,12 @@ class VirtualSqlBetweenConditionValue extends VirtualSqlConditionValue
     /**
      * @return float|VirtualSqlColumn|int
      */
-    public function getEnd(): float|int|VirtualSqlColumn
+    public function getEnd()
     {
         return $this->end;
     }
 
-    #[Pure] public function getValue(): array
+    public function getValue(): array
     {
         return [$this->getStart(), $this->getEnd()];
     }

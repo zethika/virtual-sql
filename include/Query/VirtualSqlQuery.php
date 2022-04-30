@@ -2,7 +2,6 @@
 
 namespace VirtualSql\Query;
 
-use JetBrains\PhpStorm\Pure;
 use VirtualSql\Definition\VirtualSqlColumn;
 use VirtualSql\Definition\VirtualSqlTable;
 use VirtualSql\Exceptions\InvalidQueryPartException;
@@ -36,7 +35,8 @@ abstract class VirtualSqlQuery
      */
     public static function factory(int $type, VirtualSqlTable $baseTable, array $config = []): VirtualSqlQuery
     {
-        return new (self::TYPE_CLASS_MAP[$type])($baseTable, $config);
+        $classname = self::TYPE_CLASS_MAP[$type];
+        return new $classname($baseTable, $config);
     }
 
     /**
@@ -171,7 +171,7 @@ abstract class VirtualSqlQuery
     /**
      * @return array
      */
-    #[Pure] public function getNamedParameters(): array
+    public function getNamedParameters(): array
     {
         return $this->builder->getNamedParameters();
     }

@@ -33,7 +33,7 @@ class VirtualSqlInsertQuery extends VirtualSqlQuery
         $this->columns = isset($config['columns']) && is_array($config['columns']) ? array_values(array_filter($config['columns'], fn($column) => $column instanceof VirtualSqlColumn)) : [];
         $this->valueSets = isset($config['valueSets']) && is_array($config['valueSets']) ? $config['valueSets'] : [];
         $this->onDuplicateUpdateColumns = isset($config['onDuplicateUpdateColumns']) && is_array($config['onDuplicateUpdateColumns']) ? array_values(array_filter($config['onDuplicateUpdateColumns'], fn($column) => $column instanceof VirtualSqlColumn)) : [];
-        parent::__construct($table, $config);
+        parent::__construct($table);
     }
 
     /**

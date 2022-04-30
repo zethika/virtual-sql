@@ -2,7 +2,6 @@
 
 namespace VirtualSql\QueryParts;
 
-use JetBrains\PhpStorm\Pure;
 use VirtualSql\Definition\VirtualSqlColumn;
 use VirtualSql\Exceptions\InvalidQueryPartException;
 use VirtualSql\QueryParts\Element\ConditionValue\VirtualSqlConditionValue;
@@ -28,7 +27,7 @@ class VirtualSqlConditionSetBuilder
      * @param mixed ...$pieces
      * @return VirtualSqlConditionSet
      */
-    #[Pure] public static function andX(...$pieces): VirtualSqlConditionSet
+    public static function andX(...$pieces): VirtualSqlConditionSet
     {
         return self::createSet(VirtualSqlConstant::OPERATOR_AND, $pieces);
     }
@@ -37,7 +36,7 @@ class VirtualSqlConditionSetBuilder
      * @param mixed ...$pieces
      * @return VirtualSqlConditionSet
      */
-    #[Pure] public static function orX(...$pieces): VirtualSqlConditionSet
+   public static function orX(...$pieces): VirtualSqlConditionSet
     {
         return self::createSet(VirtualSqlConstant::OPERATOR_OR, $pieces);
     }
@@ -47,7 +46,7 @@ class VirtualSqlConditionSetBuilder
      * @param VirtualSqlCondition[]|VirtualSqlConditionSet[] $pieces
      * @return VirtualSqlConditionSet
      */
-    #[Pure] private static function createSet(string $operator, array $pieces): VirtualSqlConditionSet
+    private static function createSet(string $operator, array $pieces): VirtualSqlConditionSet
     {
         return new VirtualSqlConditionSet($operator, $pieces);
     }

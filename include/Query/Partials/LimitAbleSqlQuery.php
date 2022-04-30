@@ -9,7 +9,7 @@ abstract class LimitAbleSqlQuery extends WhereAbleSqlQuery
     /**
      * @var int|null
      */
-    protected int|null $limit;
+    protected ?int $limit;
 
     /**
      * @param VirtualSqlTable $baseTable
@@ -17,7 +17,7 @@ abstract class LimitAbleSqlQuery extends WhereAbleSqlQuery
      */
     public function __construct(VirtualSqlTable $baseTable, array $config)
     {
-        $this->limit = isset($config['limit']) && is_integer($config['limit']) ? (int)$config['limit'] : null;
+        $this->limit = isset($config['limit']) && is_numeric($config['limit']) ? (int)$config['limit'] : null;
         parent::__construct($baseTable, $config);
     }
 

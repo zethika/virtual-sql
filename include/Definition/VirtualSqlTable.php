@@ -20,7 +20,7 @@ class VirtualSqlTable
     private ?string $alias;
 
     /**
-     * @var array
+     * @var array|null
      */
     private ?array $columnNameIndexes = null;
 

@@ -16,7 +16,7 @@ trait SingletonTrait
      *
      * @return static Instance.
      */
-    final public static function getInstance(): static
+    final public static function getInstance()
     {
         if (null === static::$instance)
             static::$instance = new static();

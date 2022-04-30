@@ -41,7 +41,7 @@ class VirtualSqlQueryHelper
      * @param array $parameters
      * @return array|false
      */
-    public function fetch(string $sql, array $parameters = []): array|false
+    public function fetch(string $sql, array $parameters = [])
     {
         try
         {
@@ -59,7 +59,7 @@ class VirtualSqlQueryHelper
      * @param array $parameters
      * @return array|false
      */
-    public function fetchAll(string $sql, array $parameters = []): array|false
+    public function fetchAll(string $sql, array $parameters = [])
     {
         try
         {

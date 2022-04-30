@@ -71,7 +71,7 @@ class VirtualSqlConditionSet
      * @param VirtualSqlCondition|VirtualSqlConditionSet $condition
      * @return $this
      */
-    public function addCondition(VirtualSqlCondition|VirtualSqlConditionSet $condition)
+    public function addCondition($condition): VirtualSqlConditionSet
     {
         if ($condition instanceof VirtualSqlConditionSet && $condition->getOperator() === $this->getOperator())
         {

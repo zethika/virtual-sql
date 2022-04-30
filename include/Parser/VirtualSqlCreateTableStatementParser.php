@@ -47,13 +47,15 @@ class VirtualSqlCreateTableStatementParser
         foreach ($columns as $column)
         {
             $column = trim($column);
-            if (str_contains($column, VirtualSqlConstant::EXTRA_PRIMARY_KEY))
+            if (strpos($column, VirtualSqlConstant::EXTRA_PRIMARY_KEY) !== false)
             {
                 $this->parsePrimaryKeyColumn($column);
-            } else if (str_contains($column, VirtualSqlConstant::EXTRA_UNIQUE))
+            }
+            else if (strpos($column, VirtualSqlConstant::EXTRA_UNIQUE) !== false)
             {
                 $this->parseUniqueColumn($column);
-            } else
+            }
+            else
             {
                 preg_match('/`(.*?)` (.*?)[ ,]/is', $column, $matches);
                 if (count($matches) === 3)
@@ -95,7 +97,7 @@ class VirtualSqlCreateTableStatementParser
      * @param string $typeDeclaration
      * @return VirtualSqlColumn
      */
-    private function populateColumn(string $columnString, string $name, string $typeDeclaration)
+    private function populateColumn(string $columnString, string $name, string $typeDeclaration): VirtualSqlColumn
     {
         $type = $this->parseTypeDeclaration($typeDeclaration);
 
@@ -103,7 +105,7 @@ class VirtualSqlCreateTableStatementParser
             $name,
             $type['type'],
             $type['length'],
-            str_contains($columnString, 'NOT NULL') === false,
+            strpos($columnString, 'NOT NULL') === false,
             $this->parseDefaultValue($columnString),
             $this->parseExtras($columnString)
         );
@@ -116,13 +118,13 @@ class VirtualSqlCreateTableStatementParser
     private function parseExtras(string $columnString): ?array
     {
         $extras = [];
-        if (str_contains($columnString, VirtualSqlConstant::EXTRA_AUTO_INCREMENT))
+        if (strpos($columnString, VirtualSqlConstant::EXTRA_AUTO_INCREMENT) !== false)
             $extras[] = VirtualSqlConstant::EXTRA_AUTO_INCREMENT;
 
-        if (str_contains($columnString, VirtualSqlConstant::EXTRA_UNIQUE))
+        if (strpos($columnString, VirtualSqlConstant::EXTRA_UNIQUE) !== false)
             $extras[] = VirtualSqlConstant::EXTRA_UNIQUE;
 
-        if (str_contains($columnString, VirtualSqlConstant::EXTRA_ON_UPDATE_CURRENT_TIMESTAMP))
+        if (strpos($columnString, VirtualSqlConstant::EXTRA_ON_UPDATE_CURRENT_TIMESTAMP) !== false)
             $extras[] = VirtualSqlConstant::EXTRA_ON_UPDATE_CURRENT_TIMESTAMP;
 
         return $extras;
@@ -135,11 +137,11 @@ class VirtualSqlCreateTableStatementParser
     private function parseDefaultValue(string $columnString): ?string
     {
         // No default value
-        if (str_contains($columnString, 'DEFAULT') === false)
+        if (strpos($columnString, 'DEFAULT') === false)
             return null;
 
         // Default value is not a string
-        if (str_contains($columnString, 'DEFAULT \'') === false)
+        if (strpos($columnString, 'DEFAULT \'') === false)
         {
             preg_match('/DEFAULT (.*?)[ ,]/', $columnString, $matches);
             return count($matches) === 2 ? $matches[1] : null;
@@ -151,21 +153,14 @@ class VirtualSqlCreateTableStatementParser
 
     /**
      * @param string $typeDeclaration
+     * @return array
      */
-    private function parseTypeDeclaration(string $typeDeclaration)
+    private function parseTypeDeclaration(string $typeDeclaration): array
     {
         $pos = strpos($typeDeclaration, '(');
         return ($pos !== false) ? [
             'type' => substr($typeDeclaration, 0, $pos),
             'length' => substr($typeDeclaration, $pos + 1, -1)
         ] : ['type' => $typeDeclaration, 'length' => null];
-    }
-
-    /**
-     * Extracts the table name from the create string
-     */
-    private function determineTableName()
-    {
-
     }
 }

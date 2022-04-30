@@ -15,7 +15,7 @@ abstract class VirtualSqlConditionValue
      * @return VirtualSqlArrayConditionValue|VirtualSqlBetweenConditionValue|VirtualSqlNumberConditionValue|VirtualSqlStringConditionValue
      * @throws InvalidQueryPartException
      */
-    public static function factory(VirtualSqlColumn $column, mixed $value, $value2 = null): VirtualSqlBetweenConditionValue|VirtualSqlArrayConditionValue|VirtualSqlStringConditionValue|VirtualSqlNumberConditionValue
+    public static function factory(VirtualSqlColumn $column, $value, $value2 = null): VirtualSqlConditionValue
     {
         try
         {

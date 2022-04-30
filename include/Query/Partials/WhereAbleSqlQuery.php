@@ -47,7 +47,7 @@ abstract class WhereAbleSqlQuery extends JoinAbleSqlQuery
      * @param VirtualSqlCondition|VirtualSqlConditionSet $where
      * @return VirtualSqlQuery
      */
-    public function addWhere(VirtualSqlConditionSet|VirtualSqlCondition $where): VirtualSqlQuery
+    public function addWhere($where): VirtualSqlQuery
     {
         $this->where->addCondition($where);
         return $this;

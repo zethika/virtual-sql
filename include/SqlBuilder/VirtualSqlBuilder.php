@@ -2,7 +2,6 @@
 
 namespace VirtualSql\SqlBuilder;
 
-use JetBrains\PhpStorm\Pure;
 use VirtualSql\Definition\VirtualSqlColumn;
 use VirtualSql\Definition\VirtualSqlTable;
 use VirtualSql\Exceptions\InvalidQueryPartException;
@@ -73,12 +72,17 @@ abstract class VirtualSqlBuilder
     {
         $string = $this->getTableAliasedColumnString($condition->getColumn()) . ' ';
 
-        $string .= match ($condition->getComparator())
-        {
-            VirtualSqlConstant::COMPARATOR_IN, VirtualSqlConstant::COMPARATOR_NOT_IN => $this->buildInNotInConditionString($condition),
-            VirtualSqlConstant::COMPARATOR_BETWEEN => $this->buildBetweenConditionString($condition),
-            default => $this->buildDefaultConditionString($condition),
-        };
+        switch ($condition->getComparator()){
+            case VirtualSqlConstant::COMPARATOR_IN:
+            case VirtualSqlConstant::COMPARATOR_NOT_IN:
+                $string .= $this->buildInNotInConditionString($condition);
+                break;
+            case VirtualSqlConstant::COMPARATOR_BETWEEN:
+                $string .= $this->buildBetweenConditionString($condition);
+                break;
+            default:
+                $string .= $this->buildDefaultConditionString($condition);
+        }
 
         return $string;
     }
@@ -136,7 +140,7 @@ abstract class VirtualSqlBuilder
      * @param VirtualSqlTable $table
      * @return string
      */
-    #[Pure] protected function getAliasedTableName(VirtualSqlTable $table): string
+    protected function getAliasedTableName(VirtualSqlTable $table): string
     {
         return $table->getAlias() !== null ? $table->getName() . ' as ' . $table->getAlias() : $table->getName();
     }
@@ -147,7 +151,7 @@ abstract class VirtualSqlBuilder
      * @param VirtualSqlColumn $column
      * @return string
      */
-    #[Pure] protected function getTableAliasedColumnString(VirtualSqlColumn $column): string
+    protected function getTableAliasedColumnString(VirtualSqlColumn $column): string
     {
         $tableAlias = $column->getTable() instanceof VirtualSqlTable ? $column->getTable()->getAlias() : null;
         return $tableAlias === null ? $column->getColumn() : $tableAlias . '.' . $column->getColumn();
@@ -159,7 +163,7 @@ abstract class VirtualSqlBuilder
      * @param VirtualSqlColumn $column
      * @return string
      */
-    #[Pure] protected function getFullyAliasedColumnString(VirtualSqlColumn $column): string
+    protected function getFullyAliasedColumnString(VirtualSqlColumn $column): string
     {
         $base = $this->getTableAliasedColumnString($column);
         return $column->getAlias() === null ? $base : $base . ' as ' . $column->getAlias();
@@ -179,7 +183,7 @@ abstract class VirtualSqlBuilder
     /**
      * Returns a string representing the next available SQL named parameter
      */
-    #[Pure] private function getUnusedNamedParameter(): string
+    private function getUnusedNamedParameter(): string
     {
         return ':v' . count($this->namedParameters);
     }
