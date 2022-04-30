@@ -44,11 +44,7 @@ class VirtualSqlInsertBuilder extends VirtualSqlBuilder
 		$sets = [];
 		foreach ($this->getQuery()->getValueSets() as $set)
 		{
-			$parts = [];
-			foreach ($this->getQuery()->getColumns() as $column)
-			{
-				$parts[] = $this->parseAddValue($column, $set[$column->getColumn()] ?? null);
-			}
+			$parts = array_map(fn(VirtualSqlColumn $column) => $this->parseAddValue($column, $set[$column->getColumn()] ?? null),$this->getQuery()->getColumns());
 			$sets[] = '('.implode(',',$parts).')';
 		}
 
@@ -58,34 +54,15 @@ class VirtualSqlInsertBuilder extends VirtualSqlBuilder
 	}
 
 	/**
-	 * @param VirtualSqlColumn $column
-	 * @param $value
-	 * @return string
-	 * @throws InvalidQueryPartException
-	 */
-	private function parseAddValue(VirtualSqlColumn $column, $value): string
-	{
-		if($value === null && $column->isNullable() === false)
-			throw new InvalidQueryPartException('Column "'.$column->getColumn().'" may not be null');
-
-		return $value === null ? 'NULL' : $this->addNamedParameter($value);
-	}
-
-	/**
 	 * @return string
 	 */
-	#[Pure] private function buildOnDuplicateKeyPart(): string
+	private function buildOnDuplicateKeyPart(): string
 	{
 		$string = '';
 		if(count($this->getQuery()->getOnDuplicateUpdateColumns()) !== 0)
 		{
 			$string .= ' ON DUPLICATE KEY UPDATE ';
-			$parts = [];
-			foreach ($this->getQuery()->getOnDuplicateUpdateColumns() as $column)
-			{
-				$parts[] = $column->getColumn().'=VALUES('.$column->getColumn().')';
-			}
-
+			$parts = array_map(fn(VirtualSqlColumn $column) => $column->getColumn().'=VALUES('.$column->getColumn().')',$this->getQuery()->getOnDuplicateUpdateColumns());
 			$string .= implode(', ',$parts);
 		}
 		return $string;
