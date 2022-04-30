@@ -13,6 +13,10 @@ use VirtualSql\QueryParts\Element\VirtualSqlCondition;
 use VirtualSql\QueryParts\Element\VirtualSqlConditionSet;
 use VirtualSql\VirtualSqlConstant;
 
+/**
+ * VirtualSqlBuilder and its child classes are responsible for taking a VirtualSqlQuery and building its corresponding SQL statement,
+ * making an array of named parameters that represents the found values available in the meantime.
+ */
 abstract class VirtualSqlBuilder
 {
 	/**
