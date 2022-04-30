@@ -56,9 +56,9 @@ class VirtualSqlCreateTableStatementParser
 			}
 			else
 			{
-				preg_match('/(.*) `(.*?)` (.*?)[ ,]/is',$column,$matches);
-				if(count($matches) === 4)
-					$this->columns[$matches[2]] = $this->populateColumn($column, $matches[2], $matches[3]);
+				preg_match('/`(.*?)` (.*?)[ ,]/is',$column,$matches);
+				if(count($matches) === 3)
+					$this->columns[$matches[1]] = $this->populateColumn($column, $matches[1], $matches[2]);
 			}
 		}
 	}
