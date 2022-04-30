@@ -69,6 +69,14 @@ class VirtualSqlInsertQuery extends VirtualSqlQuery
 	}
 
 	/**
+	 * @param array $valueSet
+	 */
+	public function addValueSet(array $valueSet): void
+	{
+		$this->valueSets[] = $valueSet;
+	}
+
+	/**
 	 * @return VirtualSqlColumn[]
 	 */
 	public function getOnDuplicateUpdateColumns(): array
