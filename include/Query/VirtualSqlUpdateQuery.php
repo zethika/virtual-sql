@@ -6,9 +6,12 @@ use VirtualSql\Definition\VirtualSqlColumn;
 use VirtualSql\Definition\VirtualSqlTable;
 use VirtualSql\Query\Partials\WhereAbleSqlQuery;
 use VirtualSql\SqlBuilder\VirtualSqlUpdateBuilder;
+use VirtualSql\Traits\QueryConditionBuilderHelpersTrait;
 
 class VirtualSqlUpdateQuery extends WhereAbleSqlQuery
 {
+    use QueryConditionBuilderHelpersTrait;
+
     /**
      * @var VirtualSqlColumn[]
      */

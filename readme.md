@@ -177,20 +177,20 @@ $query = VirtualSqlQuery::factory(VirtualSqlQuery::TYPE_SELECT,$table1);
 $query->innerJoin(
     $table1->getColumn('id'),
     $table2->getColumn('table1_id'),
-    VirtualSqlConditionSetBuilder::andX(
-        VirtualSqlConditionSetBuilder::condition($table1->getColumn('some_column'),'?'),
-        VirtualSqlConditionSetBuilder::condition($table1->getColumn('another_column'),'?'),
-        VirtualSqlConditionSetBuilder::orX(
-            VirtualSqlConditionSetBuilder::condition($table2->getColumn('a_third_column'),'?'),
-            VirtualSqlConditionSetBuilder::condition($table2->getColumn('a_fourth_column'),'?')
+    $query->andX(
+        $query->condition($table1->getColumn('some_column'),'?'),
+        $query->condition($table1->getColumn('another_column'),'?'),
+        $query->orX(
+            $query->condition($table2->getColumn('a_third_column'),'?'),
+            $query->condition($table2->getColumn('a_fourth_column'),'?')
         )
     )
 );
 
 // Add an additional, seperate where statement
-$query->addWhere(VirtualSqlConditionSetBuilder::andX(
-    VirtualSqlConditionSetBuilder::condition($table2->getColumn('second_table_column'),'some_value'),
-    VirtualSqlConditionSetBuilder::condition($table1->getColumn('another_table_column'),'some_other_value')
+$query->addWhere($query->andX(
+    $query->condition($table2->getColumn('second_table_column'),'some_value'),
+    $query->condition($table1->getColumn('another_table_column'),'some_other_value')
 ));
 
 // Define the selects by referencing specific columns via their table instance.
@@ -218,12 +218,12 @@ Virtual SQL uses VirtualSqlCondition instances to describe individual conditions
 To help build them Virtual SQL provides the class VirtualSqlConditionSetBuilder which has a series of static methods to build conditions and condition sets
 
 ```
-$conditionSet = VirtualSqlConditionSetBuilder::andX(
-    VirtualSqlConditionSetBuilder::condition($table1->getColumn('some_column'),'?'),
-    VirtualSqlConditionSetBuilder::condition($table1->getColumn('another_column'),'?'),
-    VirtualSqlConditionSetBuilder::orX(
-        VirtualSqlConditionSetBuilder::condition($table2->getColumn('a_third_column'),'?'),
-        VirtualSqlConditionSetBuilder::condition($table2->getColumn('a_fourth_column'),'?')
+$conditionSet = $query->andX(
+    $query->condition($table1->getColumn('some_column'),'?'),
+    $query->condition($table1->getColumn('another_column'),'?'),
+    $query->orX(
+        $query->condition($table2->getColumn('a_third_column'),'?'),
+        $query->condition($table2->getColumn('a_fourth_column'),'?')
     )
 )
 ```

@@ -6,9 +6,12 @@ use VirtualSql\Definition\VirtualSqlColumn;
 use VirtualSql\Definition\VirtualSqlTable;
 use VirtualSql\Query\Partials\OffsetAbleSqlQuery;
 use VirtualSql\SqlBuilder\VirtualSqlSelectBuilder;
+use VirtualSql\Traits\QueryConditionBuilderHelpersTrait;
 
 class VirtualSqlSelectQuery extends OffsetAbleSqlQuery
 {
+    use QueryConditionBuilderHelpersTrait;
+
     /**
      * @var VirtualSqlColumn[]
      */
