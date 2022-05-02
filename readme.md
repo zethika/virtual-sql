@@ -215,7 +215,7 @@ For example to create joins on a select query, there is "innerJoin", "leftJoin",
 
 ## Conditions
 Virtual SQL uses VirtualSqlCondition instances to describe individual conditions and VirtualSqlConditionSet to describe sets of conditions.  
-To help build them, there is 3 helper methods on VirtualSqlQuery "andX", "orX" and "condition".
+To help build them, there are 3 helper methods on VirtualSqlQuery "andX", "orX" and "condition".
 "andX" and "orX" takes an arbitrary number of parameters of either VirtualSqlCondition or VirtualSqlConditionSets.
 
 ```
