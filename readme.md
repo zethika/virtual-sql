@@ -215,7 +215,8 @@ For example to create joins on a select query, there is "innerJoin", "leftJoin",
 
 ## Conditions
 Virtual SQL uses VirtualSqlCondition instances to describe individual conditions and VirtualSqlConditionSet to describe sets of conditions.  
-To help build them Virtual SQL provides the class VirtualSqlConditionSetBuilder which has a series of static methods to build conditions and condition sets
+To help build them, there is 3 helper methods on VirtualSqlQuery "andX", "orX" and "condition".
+"andX" and "orX" takes an arbitrary number of parameters of either VirtualSqlCondition or VirtualSqlConditionSets.
 
 ```
 $conditionSet = $query->andX(
