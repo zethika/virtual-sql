@@ -89,6 +89,14 @@ class VirtualSqlColumn
     /**
      * @return string
      */
+    public function getSafeColumn(): string
+    {
+        return '`'.$this->getColumn().'`';
+    }
+
+    /**
+     * @return string
+     */
     public function getType(): string
     {
         return $this->type;

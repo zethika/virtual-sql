@@ -37,7 +37,7 @@ class VirtualSqlInsertBuilder extends VirtualSqlBuilder
     public function getSql(): string
     {
         $string = 'INSERT INTO ' . $this->getAliasedTableName($this->getQuery()->getBaseTable()) . ' (';
-        $string .= implode(',', array_map(fn(VirtualSqlColumn $column) => $column->getColumn(), $this->getQuery()->getColumns()));
+        $string .= implode(',', array_map(fn(VirtualSqlColumn $column) => $column->getSafeColumn(), $this->getQuery()->getColumns()));
         $string .= ') VALUES ';
 
         $sets = [];
@@ -61,7 +61,7 @@ class VirtualSqlInsertBuilder extends VirtualSqlBuilder
         if (count($this->getQuery()->getOnDuplicateUpdateColumns()) !== 0)
         {
             $string .= ' ON DUPLICATE KEY UPDATE ';
-            $parts = array_map(fn(VirtualSqlColumn $column) => $column->getColumn() . '=VALUES(' . $column->getColumn() . ')', $this->getQuery()->getOnDuplicateUpdateColumns());
+            $parts = array_map(fn(VirtualSqlColumn $column) => $column->getSafeColumn() . '=VALUES(' . $column->getSafeColumn() . ')', $this->getQuery()->getOnDuplicateUpdateColumns());
             $string .= implode(', ', $parts);
         }
         return $string;

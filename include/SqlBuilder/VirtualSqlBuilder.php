@@ -154,7 +154,7 @@ abstract class VirtualSqlBuilder
     protected function getTableAliasedColumnString(VirtualSqlColumn $column): string
     {
         $tableAlias = $column->getTable() instanceof VirtualSqlTable ? $column->getTable()->getAlias() : null;
-        return $tableAlias === null ? $column->getColumn() : $tableAlias . '.' . $column->getColumn();
+        return $tableAlias === null ? $column->getSafeColumn() : $tableAlias . '.' . $column->getSafeColumn();
     }
 
     /**
