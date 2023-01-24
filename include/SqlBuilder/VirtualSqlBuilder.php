@@ -26,6 +26,8 @@ abstract class VirtualSqlBuilder
 
     abstract protected function getQuery(): VirtualSqlQuery;
 
+    protected function disableAliases(): bool {return false;}
+
     /**
      * @return array
      */
@@ -142,7 +144,7 @@ abstract class VirtualSqlBuilder
      */
     protected function getAliasedTableName(VirtualSqlTable $table): string
     {
-        return $table->getAlias() !== null ? $table->getName() . ' as ' . $table->getAlias() : $table->getName();
+        return $table->getAlias() !== null && $this->disableAliases() === false ? $table->getName() . ' as ' . $table->getAlias() : $table->getName();
     }
 
     /**
@@ -154,7 +156,7 @@ abstract class VirtualSqlBuilder
     protected function getTableAliasedColumnString(VirtualSqlColumn $column): string
     {
         $tableAlias = $column->getTable() instanceof VirtualSqlTable ? $column->getTable()->getAlias() : null;
-        return $tableAlias === null ? $column->getSafeColumn() : $tableAlias . '.' . $column->getSafeColumn();
+        return $tableAlias === null || $this->disableAliases() ? $column->getSafeColumn() : $tableAlias . '.' . $column->getSafeColumn();
     }
 
     /**
@@ -166,7 +168,7 @@ abstract class VirtualSqlBuilder
     protected function getFullyAliasedColumnString(VirtualSqlColumn $column): string
     {
         $base = $this->getTableAliasedColumnString($column);
-        return $column->getAlias() === null ? $base : $base . ' as ' . $column->getAlias();
+        return $column->getAlias() === null || $this->disableAliases() ? $base : $base . ' as ' . $column->getAlias();
     }
 
     /**

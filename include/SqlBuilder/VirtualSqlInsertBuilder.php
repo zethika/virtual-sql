@@ -14,6 +14,12 @@ class VirtualSqlInsertBuilder extends VirtualSqlBuilder
      */
     private VirtualSqlInsertQuery $query;
 
+    protected function disableAliases(): bool
+    {
+        return true;
+    }
+
+
     /**
      * @param VirtualSqlInsertQuery $query
      */
