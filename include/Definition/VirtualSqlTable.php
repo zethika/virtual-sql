@@ -122,4 +122,12 @@ class VirtualSqlTable
         $this->populateColumnNameIndexes();
         return isset($this->columnNameIndexes[$column]) ? $this->getColumns()[$this->columnNameIndexes[$column]] : null;
     }
+
+    /**
+     * @return VirtualSqlColumn[]
+     */
+    public function getPrimaryKeyColumns(): array
+    {
+        return array_filter($this->getColumns(),fn(VirtualSqlColumn $column) => $column->isPrimaryKeyColumn());
+    }
 }
