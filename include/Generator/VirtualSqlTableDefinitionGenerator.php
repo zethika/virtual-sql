@@ -48,7 +48,7 @@ class VirtualSqlTableDefinitionGenerator
             throw new InvalidStatementPartException('Unknown table "' . $table . '"');
 
         if ($this->tables[$table] === false)
-            $this->tables[$table] = $this->db->fetch('SHOW CREATE TABLE ' . $table)['Create Table'];
+            $this->tables[$table] = $this->db->fetch('SHOW CREATE TABLE `' . $table)['Create Table'].'`';
 
         return VirtualSqlCreateTableStatementParser::getInstance()->parseStatement($this->tables[$table]);
     }
