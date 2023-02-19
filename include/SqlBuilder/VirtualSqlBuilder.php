@@ -144,7 +144,7 @@ abstract class VirtualSqlBuilder
      */
     protected function getAliasedTableName(VirtualSqlTable $table): string
     {
-        return $table->getAlias() !== null && $this->disableAliases() === false ? $table->getName() . ' as ' . $table->getAlias() : $table->getName();
+        return $table->getAlias() !== null && $this->disableAliases() === false ? '`'.$table->getName() . '` as ' . $table->getAlias() : '`'.$table->getName().'`';
     }
 
     /**
