@@ -87,8 +87,14 @@ class VirtualSqlCreateTableStatementParser
     private function parsePrimaryKeyColumn(string $column)
     {
         preg_match('/PRIMARY KEY \(`(.*)`\)/is', $column, $matches);
-        if (count($matches) === 2 && isset($this->columns[$matches[1]]))
-            $this->columns[$matches[1]]->addExtra(VirtualSqlConstant::EXTRA_PRIMARY_KEY);
+        if (count($matches) === 2)
+        {
+            $primaryKeys = strpos($matches[1],',') !== false ? explode(',',$matches[1]) : [$matches[1]];
+            foreach ($primaryKeys as $primaryKey)
+            {
+                $this->columns[str_replace('`','',$primaryKey)]->addExtra(VirtualSqlConstant::EXTRA_PRIMARY_KEY);
+            }
+        }
     }
 
     /**
