@@ -10,6 +10,13 @@ use VirtualSql\SqlBuilder\Partials\LimitAbleSqlBuilder;
 class VirtualSqlDeleteBuilder extends LimitAbleSqlBuilder
 {
     /**
+     * @return bool
+     */
+    protected function disableAliases(): bool {
+        return true;
+    }
+
+    /**
      * @var VirtualSqlDeleteQuery
      */
     private VirtualSqlDeleteQuery $query;
