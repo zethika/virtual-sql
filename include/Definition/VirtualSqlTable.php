@@ -109,7 +109,7 @@ class VirtualSqlTable
         $this->columnNameIndexes = [];
         foreach ($this->getColumns() as $index => $columnInstance)
         {
-            $this->columnNameIndexes[$columnInstance->getColumn()] = $index;
+            $this->columnNameIndexes[mb_strtolower($columnInstance->getColumn())] = $index;
         }
     }
 
@@ -120,7 +120,8 @@ class VirtualSqlTable
     public function getColumn(string $column): ?VirtualSqlColumn
     {
         $this->populateColumnNameIndexes();
-        return isset($this->columnNameIndexes[$column]) ? $this->getColumns()[$this->columnNameIndexes[$column]] : null;
+        $lowered = mb_strtolower($column);
+        return isset($this->columnNameIndexes[$lowered]) ? $this->getColumns()[$this->columnNameIndexes[$lowered]] : null;
     }
 
     /**
