@@ -26,6 +26,11 @@ abstract class VirtualSqlBuilder
 
     abstract protected function getQuery(): VirtualSqlQuery;
 
+    /**
+     * Returns true if the query type doesn't support aliases (DELETE, INSERT)
+     *
+     * @return bool
+     */
     protected function disableAliases(): bool {return false;}
 
     /**
