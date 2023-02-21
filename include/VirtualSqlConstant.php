@@ -78,6 +78,7 @@ class VirtualSqlConstant
     const EXTRA_UNIQUE = 'UNIQUE';
     const EXTRA_ON_UPDATE_CURRENT_TIMESTAMP = 'ON UPDATE ' . self::DEFAULT_CURRENT_TIMESTAMP;
     const EXTRA_PRIMARY_KEY = 'PRIMARY KEY';
+    const EXTRA_KEY = 'KEY';
 
     /**
      * FORMATS

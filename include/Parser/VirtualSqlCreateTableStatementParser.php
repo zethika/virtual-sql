@@ -3,6 +3,7 @@
 namespace VirtualSql\Parser;
 
 use VirtualSql\Definition\VirtualSqlColumn;
+use VirtualSql\Definition\VirtualSqlIndex;
 use VirtualSql\Definition\VirtualSqlTable;
 use VirtualSql\Exceptions\InvalidStatementPartException;
 use VirtualSql\Traits\SingletonTrait;
@@ -23,6 +24,11 @@ class VirtualSqlCreateTableStatementParser
     private array $columns;
 
     /**
+     * @var VirtualSqlIndex[]
+     */
+    private array $indexes;
+
+    /**
      * @throws InvalidStatementPartException
      */
     public function parseStatement(string $statement): VirtualSqlTable
@@ -35,7 +41,7 @@ class VirtualSqlCreateTableStatementParser
             throw new InvalidStatementPartException('String is not a recognized create statement');
 
         $this->parseColumns($matches[2]);
-        return new VirtualSqlTable($matches[1], $this->columns);
+        return new VirtualSqlTable($matches[1], $this->columns, null, $this->indexes);
     }
 
     /**
@@ -51,6 +57,15 @@ class VirtualSqlCreateTableStatementParser
             {
                 $this->parsePrimaryKeyColumn($column);
             }
+            else if(strpos($column,VirtualSqlConstant::EXTRA_KEY.' `') !== false)
+            {
+                preg_match('/`(.*?)` \((.*?)\)/is', $column, $matches);
+                if(count($matches) === 3)
+                {
+                    $index = $this->populateIndex($matches[1],$matches[2], false);
+                    $this->indexes[$index->getName()] = $index;
+                }
+            }
             else if (strpos($column, VirtualSqlConstant::EXTRA_UNIQUE) !== false)
             {
                 $this->parseUniqueColumn($column);
@@ -62,6 +77,17 @@ class VirtualSqlCreateTableStatementParser
                     $this->columns[$matches[1]] = $this->populateColumn($column, $matches[1], $matches[2]);
             }
         }
+    }
+
+    /**
+     * @param string $name
+     * @param string $columns
+     * @param bool $isPrimary
+     * @return VirtualSqlIndex
+     */
+    private function populateIndex(string $name, string $columns, bool $isPrimary): VirtualSqlIndex
+    {
+        return new VirtualSqlIndex($name,explode(',',str_replace('`','',$columns)),$isPrimary);
     }
 
     /**
@@ -94,6 +120,7 @@ class VirtualSqlCreateTableStatementParser
             {
                 $this->columns[str_replace('`','',$primaryKey)]->addExtra(VirtualSqlConstant::EXTRA_PRIMARY_KEY);
             }
+            $this->indexes[VirtualSqlConstant::EXTRA_PRIMARY_KEY] = $this->populateIndex(VirtualSqlConstant::EXTRA_PRIMARY_KEY,$matches[1], true);
         }
     }
 
