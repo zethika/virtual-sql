@@ -48,6 +48,11 @@ class VirtualSqlColumn
     private ?string $alias;
 
     /**
+     * @var bool
+     */
+    private bool $isCommand;
+
+    /**
      * @param string $column
      * @param string $type
      * @param string|int|null $length
@@ -56,8 +61,9 @@ class VirtualSqlColumn
      * @param array $extras
      * @param VirtualSqlTable|null $table
      * @param string|null $alias
+     * @param bool|null $isCommand
      */
-    public function __construct(string $column, string $type, $length = null, bool $nullable = false, $defaultValue = null, array $extras = [], ?VirtualSqlTable $table = null, ?string $alias = null)
+    public function __construct(string $column, string $type, $length = null, bool $nullable = false, $defaultValue = null, array $extras = [], ?VirtualSqlTable $table = null, ?string $alias = null, ?bool $isCommand = false)
     {
         $this->column = $column;
         $this->type = $type;
@@ -67,6 +73,7 @@ class VirtualSqlColumn
         $this->extras = $extras;
         $this->table = $table;
         $this->alias = $alias;
+        $this->isCommand = $isCommand;
     }
 
 
@@ -91,7 +98,7 @@ class VirtualSqlColumn
      */
     public function getSafeColumn(): string
     {
-        return '`'.$this->getColumn().'`';
+        return $this->isCommand ? $this->getColumn() : '`'.$this->getColumn().'`';
     }
 
     /**
@@ -191,5 +198,21 @@ class VirtualSqlColumn
     {
         $this->alias = $alias;
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsCommand(): bool
+    {
+        return $this->isCommand;
+    }
+
+    /**
+     * @param bool $isCommand
+     */
+    public function setIsCommand(bool $isCommand): void
+    {
+        $this->isCommand = $isCommand;
     }
 }
