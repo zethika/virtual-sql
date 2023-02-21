@@ -24,13 +24,19 @@ class VirtualSqlTable
      */
     private ?array $columnNameIndexes = null;
 
+    /**
+     * @var VirtualSqlIndex[]
+     */
+    private array $indexes;
+
 
     /**
      * @param string $name
      * @param VirtualSqlColumn[] $columns
      * @param string|null $alias
+     * @param VirtualSqlIndex[] $indexes
      */
-    public function __construct(string $name, array $columns, ?string $alias = null)
+    public function __construct(string $name, array $columns, ?string $alias = null, array $indexes = [])
     {
         $this->name = $name;
         $this->columns = $columns;
@@ -41,6 +47,7 @@ class VirtualSqlTable
                 $column->setTable($this);
         }
         $this->alias = $alias;
+        $this->indexes = $indexes;
     }
 
     /**
@@ -95,6 +102,24 @@ class VirtualSqlTable
     public function setAlias(?string $alias): VirtualSqlTable
     {
         $this->alias = $alias;
+        return $this;
+    }
+
+    /**
+     * @return VirtualSqlIndex[]
+     */
+    public function getIndexes(): array
+    {
+        return $this->indexes;
+    }
+
+    /**
+     * @param VirtualSqlIndex[] $indexes
+     * @return VirtualSqlTable
+     */
+    public function setIndexes(array $indexes): VirtualSqlTable
+    {
+        $this->indexes = $indexes;
         return $this;
     }
 
