@@ -203,8 +203,13 @@ abstract class VirtualSqlBuilder
      */
     protected function parseAddValue(VirtualSqlColumn $column, $value): string
     {
-        if ($value === null && $column->isNullable() === false && $column->hasExtra(VirtualSqlConstant::EXTRA_AUTO_INCREMENT) === false && $column->getDefaultValue() === null)
+        if ($value === null && $column->isNullable() === false && $column->hasExtra(VirtualSqlConstant::EXTRA_AUTO_INCREMENT) === false)
+        {
+            if($column->getDefaultValue() !== null)
+                return 'DEFAULT';
+
             throw new InvalidQueryPartException('Column "' . $column->getColumn() . '" may not be null');
+        }
 
         return $value === null ? 'NULL' : $this->addNamedParameter($value);
     }
