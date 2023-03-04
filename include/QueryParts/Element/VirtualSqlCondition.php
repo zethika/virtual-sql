@@ -13,6 +13,7 @@ class VirtualSqlCondition
         VirtualSqlConstant::COMPARATOR_EQUALS => VirtualSqlConstant::COMPARATOR_EQUALS,
         VirtualSqlConstant::COMPARATOR_NOT_EQUALS => VirtualSqlConstant::COMPARATOR_NOT_EQUALS,
         VirtualSqlConstant::COMPARATOR_LIKE => VirtualSqlConstant::COMPARATOR_LIKE,
+        VirtualSqlConstant::COMPARATOR_NOT_LIKE => VirtualSqlConstant::COMPARATOR_NOT_LIKE,
         VirtualSqlConstant::COMPARATOR_LESS_THAN => VirtualSqlConstant::COMPARATOR_LESS_THAN,
         VirtualSqlConstant::COMPARATOR_LESS_EQUAL_THAN => VirtualSqlConstant::COMPARATOR_LESS_EQUAL_THAN,
         VirtualSqlConstant::COMPARATOR_GREATER_EQUAL_THAN => VirtualSqlConstant::COMPARATOR_GREATER_EQUAL_THAN,

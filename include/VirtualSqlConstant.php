@@ -24,6 +24,7 @@ class VirtualSqlConstant
     const COMPARATOR_EQUALS = '=';
     const COMPARATOR_NOT_EQUALS = '!=';
     const COMPARATOR_LIKE = 'LIKE';
+    const COMPARATOR_NOT_LIKE = 'NOT LIKE';
     const COMPARATOR_LESS_THAN = '<';
     const COMPARATOR_LESS_EQUAL_THAN = '<=';
     const COMPARATOR_GREATER_EQUAL_THAN = '>=';
