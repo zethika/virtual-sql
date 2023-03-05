@@ -2,6 +2,8 @@
 
 namespace VirtualSql\Definition;
 
+use VirtualSql\VirtualSqlConstant;
+
 class VirtualSqlTable
 {
     /**
@@ -147,6 +149,15 @@ class VirtualSqlTable
         $this->populateColumnNameIndexes();
         $lowered = mb_strtolower($column);
         return isset($this->columnNameIndexes[$lowered]) ? $this->getColumns()[$this->columnNameIndexes[$lowered]] : null;
+    }
+
+    /**
+     * @param string $command
+     * @return VirtualSqlColumn
+     */
+    public function getCommandColumn(string $command): VirtualSqlColumn
+    {
+        return new VirtualSqlColumn($command,VirtualSqlConstant::COLUMN_TYPE_VARCHAR,null,false,null,[],$this,null,true);
     }
 
     /**
