@@ -47,6 +47,7 @@ class VirtualSqlConstant
     const COLUMN_TYPE_MEDIUMTEXT = 'mediumtext';
     const COLUMN_TYPE_TEXT = 'text';
     const COLUMN_TYPE_BLOB = 'blob';
+    const COLUMN_TYPE_JSON = 'json';
 
     const COLUMN_TEXT_TYPES = [self::COLUMN_TYPE_VARCHAR, self::COLUMN_TYPE_CHAR];
 
