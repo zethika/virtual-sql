@@ -6,6 +6,7 @@ use VirtualSql\Definition\VirtualSqlColumn;
 use VirtualSql\Exceptions\InvalidQueryPartException;
 use VirtualSql\Query\VirtualSqlQuery;
 use VirtualSql\Query\VirtualSqlSelectQuery;
+use VirtualSql\QueryParts\Element\VirtualSqlOrderPart;
 use VirtualSql\SqlBuilder\Partials\OffsetAbleSqlBuilder;
 use VirtualSql\VirtualSqlConstant;
 
@@ -50,6 +51,7 @@ class VirtualSqlSelectBuilder extends OffsetAbleSqlBuilder
         $parts = [
             $this->buildJoinString($this->getQuery()->getJoins()),
             $this->buildWhereString($this->getQuery()->getWhere()),
+            $this->buildOrderString($this->getQuery()->getOrder()),
             $this->buildLimitString($this->getQuery()->getLimit()),
             $this->buildOffsetString($this->getQuery()->getOffset()),
         ];
@@ -61,6 +63,24 @@ class VirtualSqlSelectBuilder extends OffsetAbleSqlBuilder
         }
 
         return $string;
+    }
+
+    /**
+     * @param VirtualSqlOrderPart[] $orderParts
+     * @return ?string
+     */
+    private function buildOrderString(array $orderParts): ?string
+    {
+        if (count($orderParts) === 0)
+            return null;
+
+        $parts = [];
+        foreach ($orderParts as $part)
+        {
+            $parts[] = $this->getTableAliasedColumnString($part->getColumn()) . ' '.$part->getOrder();
+        }
+
+        return 'ORDER BY ' . implode(', ',$parts);
     }
 
     /**

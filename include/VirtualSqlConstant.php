@@ -87,5 +87,12 @@ class VirtualSqlConstant
      */
     const COLUMN_FORMAT_DATETIME = 'Y-m-d H:i:s';
 
+    /**
+     * ORDER
+     */
+
+    const ORDER_DIRECTION_ASC = 'ASC';
+    const ORDER_DIRECTION_DESC = 'DESC';
+
 
 }
