@@ -39,15 +39,16 @@ class VirtualSqlTableDefinitionGenerator
 
     /**
      * @param string $table
+     * @param bool $forceFetch
      * @return VirtualSqlTable
      * @throws InvalidStatementPartException
      */
-    public function generateTableDefinition(string $table): VirtualSqlTable
+    public function generateTableDefinition(string $table, bool $forceFetch = false): VirtualSqlTable
     {
         if (!isset($this->tables[$table]))
             throw new InvalidStatementPartException('Unknown table "' . $table . '"');
 
-        if ($this->tables[$table] === false)
+        if ($this->tables[$table] === false || $forceFetch)
             $this->tables[$table] = $this->db->fetch('SHOW CREATE TABLE `' . $table.'`')['Create Table'];
 
         return VirtualSqlCreateTableStatementParser::getInstance()->parseStatement($this->tables[$table]);
