@@ -51,6 +51,7 @@ class VirtualSqlSelectBuilder extends OffsetAbleSqlBuilder
         $parts = [
             $this->buildJoinString($this->getQuery()->getJoins()),
             $this->buildWhereString($this->getQuery()->getWhere()),
+            $this->buildGroupByString($this->getQuery()->getGroupBy()),
             $this->buildOrderString($this->getQuery()->getOrder()),
             $this->buildLimitString($this->getQuery()->getLimit()),
             $this->buildOffsetString($this->getQuery()->getOffset()),
@@ -63,6 +64,19 @@ class VirtualSqlSelectBuilder extends OffsetAbleSqlBuilder
         }
 
         return $string;
+    }
+
+    /**
+     * @param array $columns
+     * @return void
+     */
+    private function buildGroupByString(array $columns): ?string
+    {
+        if(count($columns) === 0)
+            return null;
+
+        $parts = array_map(fn(VirtualSqlColumn $column) => $this->getFullyAliasedColumnString($column), $columns);
+        return 'GROUP BY ' . implode(',',$parts);
     }
 
     /**
