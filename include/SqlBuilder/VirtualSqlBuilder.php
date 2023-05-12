@@ -173,7 +173,7 @@ abstract class VirtualSqlBuilder
     protected function getFullyAliasedColumnString(VirtualSqlColumn $column): string
     {
         $base = $this->getTableAliasedColumnString($column);
-        return $column->getAlias() === null || $this->disableAliases() ? $base : $base . ' as ' . $column->getAlias();
+        return $column->getAlias() === null || $this->disableAliases() ? $base : $base . ' as `' . $column->getAlias().'`';
     }
 
     /**
