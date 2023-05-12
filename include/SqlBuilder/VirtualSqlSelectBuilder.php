@@ -75,7 +75,7 @@ class VirtualSqlSelectBuilder extends OffsetAbleSqlBuilder
         if(count($columns) === 0)
             return null;
 
-        $parts = array_map(fn(VirtualSqlColumn $column) => $this->getFullyAliasedColumnString($column), $columns);
+        $parts = array_map(fn(VirtualSqlColumn $column) => $this->getTableAliasedColumnString($column), $columns);
         return 'GROUP BY ' . implode(',',$parts);
     }
 
