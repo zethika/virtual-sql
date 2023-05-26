@@ -4,6 +4,7 @@ namespace VirtualSql\QueryParts\Element\ConditionValue;
 
 use VirtualSql\Definition\VirtualSqlColumn;
 use VirtualSql\Exceptions\InvalidQueryPartException;
+use VirtualSql\Query\VirtualSqlSelectQuery;
 use VirtualSql\VirtualSqlConstant;
 
 abstract class VirtualSqlConditionValue
@@ -27,6 +28,9 @@ abstract class VirtualSqlConditionValue
 
             if (in_array($column->getType(), VirtualSqlConstant::COLUMN_NUMBER_TYPES))
                 return new VirtualSqlNumberConditionValue($value, in_array($column->getType(), [VirtualSqlConstant::COLUMN_TYPE_DECIMAL, VirtualSqlConstant::COLUMN_TYPE_FLOAT]));
+
+            if($value instanceof VirtualSqlSelectQuery)
+                return new VirtualSqlCompositeQueryConditionValue($value);
 
             return new VirtualSqlStringConditionValue($value);
         } catch (InvalidQueryPartException $e)

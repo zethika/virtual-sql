@@ -8,6 +8,7 @@ use VirtualSql\Exceptions\InvalidQueryPartException;
 use VirtualSql\Query\VirtualSqlQuery;
 use VirtualSql\QueryParts\Element\ConditionValue\VirtualSqlArrayConditionValue;
 use VirtualSql\QueryParts\Element\ConditionValue\VirtualSqlBetweenConditionValue;
+use VirtualSql\QueryParts\Element\ConditionValue\VirtualSqlCompositeQueryConditionValue;
 use VirtualSql\QueryParts\Element\VirtualSqlCondition;
 use VirtualSql\QueryParts\Element\VirtualSqlConditionSet;
 use VirtualSql\VirtualSqlConstant;
@@ -134,6 +135,19 @@ abstract class VirtualSqlBuilder
     private function buildInNotInConditionString(VirtualSqlCondition $condition): string
     {
         $value = $condition->getValue();
+        if ($value instanceof VirtualSqlCompositeQueryConditionValue)
+        {
+            $sql = $value->getValue()->getSql();
+            $parameters = $value->getValue()->getNamedParameters();
+            krsort($parameters);
+            foreach ($parameters as $key => $value){
+                $new = $this->addNamedParameter($value);
+                $sql = str_replace($key,$new,$sql);
+            }
+
+            return $condition->getComparator() . ' (' . $sql . ')';
+        }
+
         if (!$value instanceof VirtualSqlArrayConditionValue)
             throw new InvalidQueryPartException('Comparator for column "' . $condition->getColumn()->getColumn() . '" was set as IN / NOT IN but was not provided a VirtualSqlArrayConditionValue as value');
 
