@@ -5,6 +5,7 @@ namespace VirtualSql\QueryParts\Element\ConditionValue;
 use VirtualSql\Definition\VirtualSqlColumn;
 use VirtualSql\Exceptions\InvalidQueryPartException;
 use VirtualSql\Query\VirtualSqlSelectQuery;
+use VirtualSql\Query\VirtualSqlUnionQuery;
 use VirtualSql\VirtualSqlConstant;
 
 abstract class VirtualSqlConditionValue
@@ -13,7 +14,7 @@ abstract class VirtualSqlConditionValue
      * @param VirtualSqlColumn $column
      * @param mixed $value
      * @param null $value2
-     * @return VirtualSqlArrayConditionValue|VirtualSqlBetweenConditionValue|VirtualSqlNumberConditionValue|VirtualSqlStringConditionValue
+     * @return VirtualSqlConditionValue
      * @throws InvalidQueryPartException
      */
     public static function factory(VirtualSqlColumn $column, $value, $value2 = null): VirtualSqlConditionValue
@@ -29,7 +30,7 @@ abstract class VirtualSqlConditionValue
             if (in_array($column->getType(), VirtualSqlConstant::COLUMN_NUMBER_TYPES))
                 return new VirtualSqlNumberConditionValue($value, in_array($column->getType(), [VirtualSqlConstant::COLUMN_TYPE_DECIMAL, VirtualSqlConstant::COLUMN_TYPE_FLOAT]));
 
-            if($value instanceof VirtualSqlSelectQuery)
+            if($value instanceof VirtualSqlSelectQuery || $value instanceof VirtualSqlUnionQuery)
                 return new VirtualSqlCompositeQueryConditionValue($value);
 
             return new VirtualSqlStringConditionValue($value);
