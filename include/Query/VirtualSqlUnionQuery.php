@@ -14,7 +14,7 @@ class VirtualSqlUnionQuery extends VirtualSqlQuery
     use QueryConditionBuilderHelpersTrait;
 
     /**
-     * @var VirtualSqlQuery[]
+     * @var VirtualSqlSelectQuery[]
      */
     protected array $selectQueries;
     protected ?int $limit;
@@ -47,7 +47,7 @@ class VirtualSqlUnionQuery extends VirtualSqlQuery
     }
 
     /**
-     * @return array
+     * @return VirtualSqlSelectQuery[]
      */
     public function getSelectQueries(): array
     {
@@ -55,7 +55,7 @@ class VirtualSqlUnionQuery extends VirtualSqlQuery
     }
 
     /**
-     * @param array $selectQueries
+     * @param VirtualSqlSelectQuery[] $selectQueries
      * @return VirtualSqlUnionQuery
      */
     public function setSelectQueries(array $selectQueries): VirtualSqlUnionQuery
