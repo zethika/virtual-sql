@@ -2,6 +2,7 @@
 
 namespace VirtualSql\SqlBuilder;
 
+use VirtualSql\Exceptions\InvalidQueryPartException;
 use VirtualSql\Query\VirtualSqlQuery;
 use VirtualSql\Query\VirtualSqlUnionQuery;
 use VirtualSql\QueryParts\Element\VirtualSqlOrderPart;
@@ -26,23 +27,57 @@ class VirtualSqlUnionBuilder extends VirtualSqlBuilder
         return $this->query;
     }
 
+    public function getNamedParameters(): array
+    {
+        $parameters = [];
+        foreach ($this->query->getSelectQueries() as $index => $selectQuery)
+        {
+            $rawParameters = $selectQuery->getNamedParameters();
+            krsort($rawParameters);
+            foreach ($rawParameters as $key => $value)
+            {
+                $parameters[$key.'_'.$index] = $value;
+            }
+        }
+
+        return $parameters;
+    }
+
     /**
      * @return string
+     * @throws InvalidQueryPartException
      */
     public function getSql(): string
     {
         $parts = [];
 
-        $sql = implode(($this->query->getUnionAll() ? "\nUNION ALL\n" : "\nUNION\n"),$parts);
+        foreach ($this->query->getSelectQueries() as $index => $selectQuery)
+        {
+            $sql = $selectQuery->getSql();
+            $parameters = $selectQuery->getNamedParameters();
+            krsort($parameters);
+            foreach ($parameters as $key => $value)
+            {
+                $sql = str_replace($key,$key.'_'.$index,$sql);
+            }
+            $parts[] = $sql;
+        }
+
+        $string = implode(($this->query->getUnionAll() ? "\nUNION ALL\n" : "\nUNION\n"),$parts);
 
         $parts = [
-            $sql,
             $this->buildOrderString($this->getQuery()->getOrder()),
             $this->buildLimitString($this->getQuery()->getLimit()),
             $this->buildOffsetString($this->getQuery()->getOffset()),
         ];
 
-        return implode("\n",$parts);
+        foreach ($parts as $part)
+        {
+            if($part !== null)
+                $string .= "\n".$part;
+        }
+
+        return $string;
     }
 
     /**
