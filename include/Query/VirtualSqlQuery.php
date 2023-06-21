@@ -19,30 +19,32 @@ abstract class VirtualSqlQuery
     const TYPE_INSERT = 1;
     const TYPE_UPDATE = 2;
     const TYPE_DELETE = 3;
+    const TYPE_UNION = 4;
 
     const TYPE_CLASS_MAP = [
         self::TYPE_SELECT => VirtualSqlSelectQuery::class,
         self::TYPE_INSERT => VirtualSqlInsertQuery::class,
         self::TYPE_UPDATE => VirtualSqlUpdateQuery::class,
-        self::TYPE_DELETE => VirtualSqlDeleteQuery::class
+        self::TYPE_DELETE => VirtualSqlDeleteQuery::class,
+        self::TYPE_UNION => VirtualSqlUnionQuery::class
     ];
 
     /**
      * @param int $type
-     * @param VirtualSqlTable $baseTable
+     * @param VirtualSqlTable|null $baseTable
      * @param array $config
      * @return VirtualSqlQuery
      */
-    public static function factory(int $type, VirtualSqlTable $baseTable, array $config = []): VirtualSqlQuery
+    public static function factory(int $type, ?VirtualSqlTable $baseTable = null, array $config = []): VirtualSqlQuery
     {
         $classname = self::TYPE_CLASS_MAP[$type];
         return new $classname($baseTable, $config);
     }
 
     /**
-     * @var VirtualSqlTable
+     * @var VirtualSqlTable|null
      */
-    protected VirtualSqlTable $baseTable;
+    protected ?VirtualSqlTable $baseTable = null;
 
     /**
      * A map of the tables known to the query builder.
@@ -58,13 +60,14 @@ abstract class VirtualSqlQuery
     protected VirtualSqlBuilder $builder;
 
     /**
-     * @param VirtualSqlTable $baseTable
+     * @param VirtualSqlTable|null $baseTable
      */
-    public function __construct(VirtualSqlTable $baseTable)
+    public function __construct(?VirtualSqlTable $baseTable = null)
     {
         $this->baseTable = $baseTable;
 
-        $this->ensureTable($baseTable);
+        if($baseTable !== null)
+            $this->ensureTable($baseTable);
     }
 
     /**
