@@ -6,7 +6,7 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "zethika",
+            "name": "Kenneth Berg",
             "email": "zethika594@gmail.com"
         }
     ],
@@ -19,5 +19,9 @@
         "psr-4": {
             "VirtualSql\\": "include/"
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10",
+        "vlucas/phpdotenv": "^5.5"
     }
 }
