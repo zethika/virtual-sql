@@ -23,11 +23,12 @@ class VirtualSqlOrderPart
      */
     public function __construct(VirtualSqlColumn $column, string $order)
     {
-        if(!in_array($order,self::$acceptedOrderDirections))
+        $upper = strtoupper($order);
+        if(!in_array($upper,self::$acceptedOrderDirections))
             throw new InvalidQueryPartException('Order direction "'.$order.'" is not valid');
 
         $this->column = $column;
-        $this->order = $order;
+        $this->order = $upper;
     }
 
     /**
