@@ -139,7 +139,7 @@ abstract class VirtualSqlBuilder
         {
             $sql = $value->getValue()->getSql();
             $parameters = $value->getValue()->getNamedParameters();
-            krsort($parameters);
+            ksort($parameters);
             foreach ($parameters as $key => $value){
                 $new = $this->addNamedParameter($value);
                 $sql = str_replace($key,$new,$sql);
