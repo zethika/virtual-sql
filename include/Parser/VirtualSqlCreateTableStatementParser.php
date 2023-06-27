@@ -36,12 +36,12 @@ class VirtualSqlCreateTableStatementParser
         $this->statement = $statement;
         $this->columns = [];
 
-        preg_match('/CREATE TABLE `(.*?)` \((.*)\)/is', $statement, $matches);
-        if (count($matches) !== 3)
+        preg_match('/CREATE( TEMPORARY)? TABLE `(.*?)` \((.*)\)/is', $statement, $matches);
+        if (count($matches) !== 4)
             throw new InvalidStatementPartException('String is not a recognized create statement');
 
-        $this->parseColumns($matches[2]);
-        return new VirtualSqlTable($matches[1], $this->columns, null, $this->indexes);
+        $this->parseColumns($matches[3]);
+        return new VirtualSqlTable($matches[2], $this->columns, null, $this->indexes);
     }
 
     /**
