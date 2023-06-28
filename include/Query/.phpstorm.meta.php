@@ -7,5 +7,6 @@ namespace PHPSTORM_META
         \VirtualSql\Query\VirtualSqlQuery::TYPE_INSERT => \VirtualSql\Query\VirtualSqlInsertQuery::class,
         \VirtualSql\Query\VirtualSqlQuery::TYPE_UPDATE => \VirtualSql\Query\VirtualSqlUpdateQuery::class,
         \VirtualSql\Query\VirtualSqlQuery::TYPE_DELETE => \VirtualSql\Query\VirtualSqlDeleteQuery::class,
+        \VirtualSql\Query\VirtualSqlQuery::TYPE_UNION => \VirtualSql\Query\VirtualSqlUnionQuery::class,
     ]));
 }
