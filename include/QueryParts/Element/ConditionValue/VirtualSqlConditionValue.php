@@ -27,11 +27,11 @@ abstract class VirtualSqlConditionValue
             if (is_array($value))
                 return new VirtualSqlArrayConditionValue($value);
 
-            if (in_array($column->getType(), VirtualSqlConstant::COLUMN_NUMBER_TYPES))
-                return new VirtualSqlNumberConditionValue($value, in_array($column->getType(), [VirtualSqlConstant::COLUMN_TYPE_DECIMAL, VirtualSqlConstant::COLUMN_TYPE_FLOAT]));
-
             if($value instanceof VirtualSqlSelectQuery || $value instanceof VirtualSqlUnionQuery)
                 return new VirtualSqlCompositeQueryConditionValue($value);
+
+            if (in_array($column->getType(), VirtualSqlConstant::COLUMN_NUMBER_TYPES))
+                return new VirtualSqlNumberConditionValue($value, in_array($column->getType(), [VirtualSqlConstant::COLUMN_TYPE_DECIMAL, VirtualSqlConstant::COLUMN_TYPE_FLOAT]));
 
             return new VirtualSqlStringConditionValue($value);
         } catch (InvalidQueryPartException $e)
