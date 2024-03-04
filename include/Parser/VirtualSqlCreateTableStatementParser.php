@@ -70,6 +70,11 @@ class VirtualSqlCreateTableStatementParser
             {
                 $this->parseUniqueColumn($column);
             }
+            else if (strpos($column, VirtualSqlConstant::EXTRA_CONSTRAINT) !== false)
+            {
+                // So far we don't need to know about constraints, maybe a future thing?
+                continue;
+            }
             else
             {
                 preg_match('/`(.*?)` (.*?)[ ,]/is', $column, $matches);
