@@ -31,6 +31,8 @@ class VirtualSqlConstant
     const COMPARATOR_GREATER_THAN = '>';
     const COMPARATOR_IN = 'IN';
     const COMPARATOR_NOT_IN = 'NOT IN';
+    const COMPARATOR_IS = 'IS';
+    const COMPARATOR_IS_NOT = 'IS NOT';
     const COMPARATOR_BETWEEN = 'BETWEEN';
 
     /**

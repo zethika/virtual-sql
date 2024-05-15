@@ -33,6 +33,9 @@ abstract class VirtualSqlConditionValue
             if (in_array($column->getType(), VirtualSqlConstant::COLUMN_NUMBER_TYPES))
                 return new VirtualSqlNumberConditionValue($value, in_array($column->getType(), [VirtualSqlConstant::COLUMN_TYPE_DECIMAL, VirtualSqlConstant::COLUMN_TYPE_FLOAT]));
 
+            if($value === null)
+                return new VirtualSqlNullConditionValue();
+
             return new VirtualSqlStringConditionValue($value);
         } catch (InvalidQueryPartException $e)
         {

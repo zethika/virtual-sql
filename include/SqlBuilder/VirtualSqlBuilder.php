@@ -9,6 +9,7 @@ use VirtualSql\Query\VirtualSqlQuery;
 use VirtualSql\QueryParts\Element\ConditionValue\VirtualSqlArrayConditionValue;
 use VirtualSql\QueryParts\Element\ConditionValue\VirtualSqlBetweenConditionValue;
 use VirtualSql\QueryParts\Element\ConditionValue\VirtualSqlCompositeQueryConditionValue;
+use VirtualSql\QueryParts\Element\ConditionValue\VirtualSqlNullConditionValue;
 use VirtualSql\QueryParts\Element\VirtualSqlCondition;
 use VirtualSql\QueryParts\Element\VirtualSqlConditionSet;
 use VirtualSql\VirtualSqlConstant;
@@ -79,18 +80,26 @@ abstract class VirtualSqlBuilder
     private function buildConditionString(VirtualSqlCondition $condition): string
     {
         $string = $this->getTableAliasedColumnString($condition->getColumn()) . ' ';
-
-        switch ($condition->getComparator()){
-            case VirtualSqlConstant::COMPARATOR_IN:
-            case VirtualSqlConstant::COMPARATOR_NOT_IN:
-                $string .= $this->buildInNotInConditionString($condition);
-                break;
-            case VirtualSqlConstant::COMPARATOR_BETWEEN:
-                $string .= $this->buildBetweenConditionString($condition);
-                break;
-            default:
-                $string .= $this->buildDefaultConditionString($condition);
+        if($condition->getValue() instanceof VirtualSqlNullConditionValue)
+        {
+            $string .= ($condition->getComparator() === VirtualSqlConstant::COMPARATOR_NOT_EQUALS ? VirtualSqlConstant::COMPARATOR_IS_NOT : VirtualSqlConstant::COMPARATOR_IS).' NULL';
         }
+        else
+        {
+            switch ($condition->getComparator()){
+                case VirtualSqlConstant::COMPARATOR_IN:
+                case VirtualSqlConstant::COMPARATOR_NOT_IN:
+                    $string .= $this->buildInNotInConditionString($condition);
+                    break;
+                case VirtualSqlConstant::COMPARATOR_BETWEEN:
+                    $string .= $this->buildBetweenConditionString($condition);
+                    break;
+                default:
+                    $string .= $this->buildDefaultConditionString($condition);
+            }
+        }
+
+
 
         return $string;
     }
