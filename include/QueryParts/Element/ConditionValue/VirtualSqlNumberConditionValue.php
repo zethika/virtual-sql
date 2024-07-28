@@ -20,6 +20,8 @@ class VirtualSqlNumberConditionValue extends VirtualSqlConditionValue
     {
         if (is_string($number) && is_numeric($number))
             $number = $parseToFloat ? (float)$number : (int)$number;
+        else if(is_bool($number))
+            $number = (int)$number;
 
         if (!is_numeric($number))
             throw new InvalidQueryPartException('Value "' . $number . '" is not a number');
