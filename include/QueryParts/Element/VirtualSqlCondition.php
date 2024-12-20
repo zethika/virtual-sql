@@ -21,6 +21,8 @@ class VirtualSqlCondition
         VirtualSqlConstant::COMPARATOR_IN => VirtualSqlConstant::COMPARATOR_IN,
         VirtualSqlConstant::COMPARATOR_NOT_IN => VirtualSqlConstant::COMPARATOR_NOT_IN,
         VirtualSqlConstant::COMPARATOR_BETWEEN => VirtualSqlConstant::COMPARATOR_BETWEEN,
+        VirtualSqlConstant::COMPARATOR_COUNT => VirtualSqlConstant::COMPARATOR_COUNT,
+        VirtualSqlConstant::COMPARATOR_NOT_COUNT => VirtualSqlConstant::COMPARATOR_NOT_COUNT,
     ];
 
     /**

@@ -34,6 +34,8 @@ class VirtualSqlConstant
     const COMPARATOR_IS = 'IS';
     const COMPARATOR_IS_NOT = 'IS NOT';
     const COMPARATOR_BETWEEN = 'BETWEEN';
+    const COMPARATOR_COUNT = 'COUNT';
+    const COMPARATOR_NOT_COUNT = 'NOT COUNT';
 
     /**
      * KEYWORDS
