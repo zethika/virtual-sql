@@ -1,6 +1,6 @@
 {
     "name": "zethika/virtual-sql",
-    "version": "1.7.1",
+    "version": "1.8.0",
     "keywords": ["php","sql","mysql","class"],
     "homepage": "https://github.com/zethika/virtual-sql",
     "description": "A class-based abstraction layer for MySQL, designed to help with programmatically writing MySQL queries.",
