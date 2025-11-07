@@ -82,7 +82,14 @@ abstract class VirtualSqlBuilder
         $string = $this->getTableAliasedColumnString($condition->getColumn()) . ' ';
         if($condition->getValue() instanceof VirtualSqlNullConditionValue)
         {
-            $string .= ($condition->getComparator() === VirtualSqlConstant::COMPARATOR_NOT_EQUALS ? VirtualSqlConstant::COMPARATOR_IS_NOT : VirtualSqlConstant::COMPARATOR_IS).' NULL';
+            if($condition->getComparator() === VirtualSqlConstant::COMPARATOR_IS_NOT || $condition->getComparator() === VirtualSqlConstant::COMPARATOR_IS)
+            {
+                $string .= $condition->getComparator().' NULL';
+            }
+            else
+            {
+                $string .= ($condition->getComparator() === VirtualSqlConstant::COMPARATOR_NOT_EQUALS ? VirtualSqlConstant::COMPARATOR_IS_NOT : VirtualSqlConstant::COMPARATOR_IS).' NULL';
+            }
         }
         else
         {
